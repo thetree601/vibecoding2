@@ -83,17 +83,20 @@ export const WithArrowsAndEdges: Story = {
 
 export const Controlled: Story = {
   render: (args) => {
-    const [page, setPage] = useState(args.currentPage ?? 1);
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        <Pagination
-          {...args}
-          currentPage={page}
-          onChange={(p) => setPage(p)}
-        />
-        <div style={{ fontSize: 12, color: "#666" }}>currentPage: {page}</div>
-      </div>
-    );
+    const ControlledExample: React.FC = () => {
+      const [page, setPage] = useState(args.currentPage ?? 1);
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <Pagination
+            {...args}
+            currentPage={page}
+            onChange={(p) => setPage(p)}
+          />
+          <div style={{ fontSize: 12, color: "#666" }}>currentPage: {page}</div>
+        </div>
+      );
+    };
+    return <ControlledExample />;
   },
 };
 

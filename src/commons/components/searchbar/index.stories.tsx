@@ -121,18 +121,21 @@ export const ErrorState: Story = {
 
 export const Controlled: Story = {
   render: (args) => {
-    const [value, setValue] = useState("");
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        <SearchBar
-          {...args}
-          value={value}
-          onChange={(e) => setValue((e.target as HTMLInputElement).value)}
-          placeholder="Controlled search"
-        />
-        <div style={{ fontSize: 12, color: "#666" }}>value: {value || "(empty)"}</div>
-      </div>
-    );
+    const ControlledExample: React.FC = () => {
+      const [value, setValue] = useState("");
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <SearchBar
+            {...args}
+            value={value}
+            onChange={(e) => setValue((e.target as HTMLInputElement).value)}
+            placeholder="Controlled search"
+          />
+          <div style={{ fontSize: 12, color: "#666" }}>value: {value || "(empty)"}</div>
+        </div>
+      );
+    };
+    return <ControlledExample />;
   },
 };
 
