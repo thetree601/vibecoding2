@@ -54,7 +54,12 @@ export const PrimaryLight: Story = {
 export const PrimaryDark: Story = {
   render: (args) => (
     <div style={{ background: "#0a0a0a", padding: 12 }}>
-      <SearchBar {...args} placeholder="Primary / Dark" variant="primary" theme="dark" />
+      <SearchBar
+        {...args}
+        placeholder="Primary / Dark"
+        variant="primary"
+        theme="dark"
+      />
     </div>
   ),
 };
@@ -70,7 +75,12 @@ export const SecondaryLight: Story = {
 export const SecondaryDark: Story = {
   render: (args) => (
     <div style={{ background: "#0a0a0a", padding: 12 }}>
-      <SearchBar {...args} placeholder="Secondary / Dark" variant="secondary" theme="dark" />
+      <SearchBar
+        {...args}
+        placeholder="Secondary / Dark"
+        variant="secondary"
+        theme="dark"
+      />
     </div>
   ),
 };
@@ -86,7 +96,12 @@ export const TertiaryLight: Story = {
 export const TertiaryDark: Story = {
   render: (args) => (
     <div style={{ background: "#0a0a0a", padding: 12 }}>
-      <SearchBar {...args} placeholder="Tertiary / Dark" variant="tertiary" theme="dark" />
+      <SearchBar
+        {...args}
+        placeholder="Tertiary / Dark"
+        variant="tertiary"
+        theme="dark"
+      />
     </div>
   ),
 };
@@ -131,11 +146,12 @@ export const Controlled: Story = {
             onChange={(e) => setValue((e.target as HTMLInputElement).value)}
             placeholder="Controlled search"
           />
-          <div style={{ fontSize: 12, color: "#666" }}>value: {value || "(empty)"}</div>
+          <div style={{ fontSize: 12, color: "#666" }}>
+            value: {value || "(empty)"}
+          </div>
         </div>
       );
     };
     return <ControlledExample />;
   },
 };
-

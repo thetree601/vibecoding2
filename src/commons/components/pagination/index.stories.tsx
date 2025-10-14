@@ -46,7 +46,14 @@ export const Playground: Story = {};
 
 export const VariantsLight: Story = {
   render: (args) => (
-    <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+    <div
+      style={{
+        display: "flex",
+        gap: 12,
+        alignItems: "center",
+        flexWrap: "wrap",
+      }}
+    >
       <Pagination {...args} variant="primary" theme="light" />
       <Pagination {...args} variant="secondary" theme="light" />
       <Pagination {...args} variant="tertiary" theme="light" />
@@ -56,7 +63,16 @@ export const VariantsLight: Story = {
 
 export const VariantsDark: Story = {
   render: (args) => (
-    <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", background: "#0a0a0a", padding: 12 }}>
+    <div
+      style={{
+        display: "flex",
+        gap: 12,
+        alignItems: "center",
+        flexWrap: "wrap",
+        background: "#0a0a0a",
+        padding: 12,
+      }}
+    >
       <Pagination {...args} variant="primary" theme="dark" />
       <Pagination {...args} variant="secondary" theme="dark" />
       <Pagination {...args} variant="tertiary" theme="dark" />
@@ -107,5 +123,3 @@ export const DenseMaxVisible: Story = {
     maxVisible: 5,
   },
 };
-
-

@@ -50,7 +50,14 @@ export const Playground: Story = {};
 
 export const VariantsLight: Story = {
   render: (args) => (
-    <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+    <div
+      style={{
+        display: "flex",
+        gap: 12,
+        alignItems: "center",
+        flexWrap: "wrap",
+      }}
+    >
       <Selectbox {...args} variant="primary" theme="light" />
       <Selectbox {...args} variant="secondary" theme="light" />
       <Selectbox {...args} variant="tertiary" theme="light" />
@@ -60,7 +67,16 @@ export const VariantsLight: Story = {
 
 export const VariantsDark: Story = {
   render: (args) => (
-    <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", background: "#0a0a0a", padding: 12 }}>
+    <div
+      style={{
+        display: "flex",
+        gap: 12,
+        alignItems: "center",
+        flexWrap: "wrap",
+        background: "#0a0a0a",
+        padding: 12,
+      }}
+    >
       <Selectbox {...args} variant="primary" theme="dark" />
       <Selectbox {...args} variant="secondary" theme="dark" />
       <Selectbox {...args} variant="tertiary" theme="dark" />
@@ -91,25 +107,33 @@ export const WithDefaultValue: Story = {
   },
 };
 
-const ControlledExample: React.FC<React.ComponentProps<typeof Selectbox>> = (args) => {
+const ControlledExample: React.FC<React.ComponentProps<typeof Selectbox>> = (
+  args
+) => {
   const [value, setValue] = useState<string | undefined>("apple");
   const options = (args.options as SelectboxOption[]) ?? [];
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-      <Selectbox
-        {...args}
-        value={value}
-        onChange={(v) => setValue(v)}
-      />
+      <Selectbox {...args} value={value} onChange={(v) => setValue(v)} />
       <div style={{ fontSize: 12, color: "#666" }}>
         value: {value || "(empty)"}
       </div>
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-        {options.filter(o => !o.disabled).map(o => (
-          <button key={o.value} onClick={() => setValue(o.value)} style={{ padding: "6px 10px", borderRadius: 6, border: "1px solid #ddd" }}>
-            set {o.label}
-          </button>
-        ))}
+        {options
+          .filter((o) => !o.disabled)
+          .map((o) => (
+            <button
+              key={o.value}
+              onClick={() => setValue(o.value)}
+              style={{
+                padding: "6px 10px",
+                borderRadius: 6,
+                border: "1px solid #ddd",
+              }}
+            >
+              set {o.label}
+            </button>
+          ))}
       </div>
     </div>
   );
@@ -118,5 +142,3 @@ const ControlledExample: React.FC<React.ComponentProps<typeof Selectbox>> = (arg
 export const Controlled: Story = {
   render: (args) => <ControlledExample {...args} />,
 };
-
-

@@ -1,6 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Image from 'next/image';
-import styles from './styles.module.css';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import Image from "next/image";
+import styles from "./styles.module.css";
 
 export type SelectboxOption = {
   label: string;
@@ -8,13 +14,14 @@ export type SelectboxOption = {
   disabled?: boolean;
 };
 
-export interface SelectboxProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface SelectboxProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** 변형 스타일 */
-  variant?: 'primary' | 'secondary' | 'tertiary';
+  variant?: "primary" | "secondary" | "tertiary";
   /** 크기 */
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   /** 테마 */
-  theme?: 'light' | 'dark';
+  theme?: "light" | "dark";
   /** 옵션 목록 */
   options: SelectboxOption[];
   /** 선택된 값 */
@@ -35,20 +42,22 @@ export interface SelectboxProps extends Omit<React.HTMLAttributes<HTMLDivElement
  * - 키보드 접근성 및 ARIA 속성 지원
  */
 export const Selectbox: React.FC<SelectboxProps> = ({
-  variant = 'primary',
-  size = 'medium',
-  theme = 'light',
+  variant = "primary",
+  size = "medium",
+  theme = "light",
   options,
   value,
   defaultValue,
   disabled = false,
-  placeholder = '선택하세요',
+  placeholder = "선택하세요",
   onChange,
-  className = '',
+  className = "",
   ...props
 }) => {
   const isControlled = value !== undefined;
-  const [internalValue, setInternalValue] = useState<string | undefined>(defaultValue);
+  const [internalValue, setInternalValue] = useState<string | undefined>(
+    defaultValue
+  );
   const selectedValue = isControlled ? value : internalValue;
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
@@ -56,13 +65,16 @@ export const Selectbox: React.FC<SelectboxProps> = ({
   const listRef = useRef<HTMLUListElement | null>(null);
 
   const selectedOption = useMemo(() => {
-    return options.find(opt => opt.value === selectedValue);
+    return options.find((opt) => opt.value === selectedValue);
   }, [options, selectedValue]);
 
-  const setValue = useCallback((next: string) => {
-    if (!isControlled) setInternalValue(next);
-    if (onChange) onChange(next);
-  }, [isControlled, onChange]);
+  const setValue = useCallback(
+    (next: string) => {
+      if (!isControlled) setInternalValue(next);
+      if (onChange) onChange(next);
+    },
+    [isControlled, onChange]
+  );
 
   const openList = useCallback(() => {
     if (disabled) return;
@@ -75,7 +87,8 @@ export const Selectbox: React.FC<SelectboxProps> = ({
   }, []);
 
   const toggleList = useCallback(() => {
-    if (open) closeList(); else openList();
+    if (open) closeList();
+    else openList();
   }, [open, closeList, openList]);
 
   // 외부 클릭 닫기
@@ -87,73 +100,92 @@ export const Selectbox: React.FC<SelectboxProps> = ({
       if (listRef.current && listRef.current.contains(target)) return;
       closeList();
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open, closeList]);
 
   // 키보드 내비게이션
-  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLButtonElement | HTMLUListElement>) => {
-    if (disabled) return;
-    const enabledOptions = options.filter(o => !o.disabled);
-    const currentIndex = enabledOptions.findIndex(o => o.value === selectedValue);
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        if (!open) {
-          openList();
-          setActiveIndex(Math.max(0, currentIndex));
-        } else {
-          setActiveIndex(prev => {
-            const next = prev < 0 ? 0 : Math.min(prev + 1, enabledOptions.length - 1);
-            return next;
-          });
-        }
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        if (open) {
-          setActiveIndex(prev => {
-            const next = prev < 0 ? enabledOptions.length - 1 : Math.max(prev - 1, 0);
-            return next;
-          });
-        }
-        break;
-      case 'Enter':
-      case ' ': // Space
-        if (!open) {
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLButtonElement | HTMLUListElement>) => {
+      if (disabled) return;
+      const enabledOptions = options.filter((o) => !o.disabled);
+      const currentIndex = enabledOptions.findIndex(
+        (o) => o.value === selectedValue
+      );
+      switch (e.key) {
+        case "ArrowDown":
           e.preventDefault();
-          openList();
-        } else if (activeIndex >= 0) {
+          if (!open) {
+            openList();
+            setActiveIndex(Math.max(0, currentIndex));
+          } else {
+            setActiveIndex((prev) => {
+              const next =
+                prev < 0 ? 0 : Math.min(prev + 1, enabledOptions.length - 1);
+              return next;
+            });
+          }
+          break;
+        case "ArrowUp":
           e.preventDefault();
-          const next = enabledOptions[activeIndex];
-          if (next) {
-            setValue(next.value);
+          if (open) {
+            setActiveIndex((prev) => {
+              const next =
+                prev < 0 ? enabledOptions.length - 1 : Math.max(prev - 1, 0);
+              return next;
+            });
+          }
+          break;
+        case "Enter":
+        case " ": // Space
+          if (!open) {
+            e.preventDefault();
+            openList();
+          } else if (activeIndex >= 0) {
+            e.preventDefault();
+            const next = enabledOptions[activeIndex];
+            if (next) {
+              setValue(next.value);
+              closeList();
+              buttonRef.current?.focus();
+            }
+          }
+          break;
+        case "Escape":
+          if (open) {
+            e.preventDefault();
             closeList();
             buttonRef.current?.focus();
           }
-        }
-        break;
-      case 'Escape':
-        if (open) {
-          e.preventDefault();
+          break;
+        case "Tab":
           closeList();
-          buttonRef.current?.focus();
-        }
-        break;
-      case 'Tab':
-        closeList();
-        break;
-      default:
-        break;
-    }
-  }, [disabled, options, selectedValue, open, openList, closeList, activeIndex, setValue]);
+          break;
+        default:
+          break;
+      }
+    },
+    [
+      disabled,
+      options,
+      selectedValue,
+      open,
+      openList,
+      closeList,
+      activeIndex,
+      setValue,
+    ]
+  );
 
-  const handleOptionClick = useCallback((index: number, option: SelectboxOption) => {
-    if (option.disabled) return;
-    setValue(option.value);
-    closeList();
-    buttonRef.current?.focus();
-  }, [setValue, closeList]);
+  const handleOptionClick = useCallback(
+    (index: number, option: SelectboxOption) => {
+      if (option.disabled) return;
+      setValue(option.value);
+      closeList();
+      buttonRef.current?.focus();
+    },
+    [setValue, closeList]
+  );
 
   const rootClasses = [
     styles.selectbox,
@@ -162,14 +194,21 @@ export const Selectbox: React.FC<SelectboxProps> = ({
     styles[theme],
     disabled && styles.disabled,
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-  const buttonClasses = [
-    styles.trigger,
-    open && styles.open,
-  ].filter(Boolean).join(' ');
+  const buttonClasses = [styles.trigger, open && styles.open]
+    .filter(Boolean)
+    .join(" ");
 
-  const listboxId = useMemo(() => `listbox-${Math.random().toString(36).slice(2, 9)}`, []);
+  const listboxId = useMemo(
+    () => `listbox-${Math.random().toString(36).slice(2, 9)}`,
+    []
+  );
+
+  // Figma node 3:1561 uses a 24dp caret asset within a 48px trigger
+  const iconSize = 24;
 
   return (
     <div className={rootClasses} {...props}>
@@ -189,7 +228,12 @@ export const Selectbox: React.FC<SelectboxProps> = ({
         </span>
         <span className={styles.icon} aria-hidden>
           {/* Using optimized next/image */}
-          <Image src="/icons/arrow_drop_down.svg" alt="" width={20} height={20} />
+          <Image
+            src="/icons/arrow_drop_down.svg"
+            alt=""
+            width={iconSize}
+            height={iconSize}
+          />
         </span>
       </button>
 
@@ -210,7 +254,9 @@ export const Selectbox: React.FC<SelectboxProps> = ({
               isSelected && styles.selected,
               isActive && styles.active,
               option.disabled && styles.optionDisabled,
-            ].filter(Boolean).join(' ');
+            ]
+              .filter(Boolean)
+              .join(" ");
             return (
               <li
                 key={option.value}
@@ -225,7 +271,12 @@ export const Selectbox: React.FC<SelectboxProps> = ({
                 <span className={styles.optionLabel}>{option.label}</span>
                 {isSelected && (
                   <span className={styles.checkIcon} aria-hidden>
-                    <Image src="/icons/check_outline_light_xs.svg" alt="" width={16} height={16} />
+                    <Image
+                      src="/icons/check_outline_light_xs.svg"
+                      alt=""
+                      width={16}
+                      height={16}
+                    />
                   </span>
                 )}
               </li>
@@ -238,5 +289,3 @@ export const Selectbox: React.FC<SelectboxProps> = ({
 };
 
 export default Selectbox;
-
-

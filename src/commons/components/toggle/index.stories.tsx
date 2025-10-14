@@ -111,12 +111,12 @@ export const Controlled: Story = {
             onChange={(next) => setIsOn(next)}
             label={args.label ?? "제어 토글"}
           />
-          <div style={{ fontSize: 12, color: "#666" }}>checked: {String(isOn)}</div>
+          <div style={{ fontSize: 12, color: "#666" }}>
+            checked: {String(isOn)}
+          </div>
         </div>
       );
     };
     return <ControlledExample />;
   },
 };
-
-
