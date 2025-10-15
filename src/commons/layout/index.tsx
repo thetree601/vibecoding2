@@ -10,7 +10,9 @@ export default function Layout({ children }: LayoutProps) {
     <div className={styles.container}>
       {/* Header */}
       <header className={styles.header}>
-        <div className={styles.headerContent}>Header Content</div>
+        <div className={styles.headerContent}>
+          <div className={styles.logo}>민지의 다이어리</div>
+        </div>
       </header>
 
       {/* Gap */}
@@ -18,7 +20,13 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Banner */}
       <section className={styles.banner}>
-        <div className={styles.bannerContent}>Banner Content</div>
+        <div className={styles.bannerContent}>
+          <img
+            src="/images/banner.png"
+            alt="Banner"
+            className={styles.bannerImage}
+          />
+        </div>
       </section>
 
       {/* Gap */}
@@ -26,7 +34,14 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Navigation */}
       <nav className={styles.navigation}>
-        <div className={styles.navigationContent}>Navigation Content</div>
+        <div className={styles.navigationContent}>
+          <div className={styles.navTab}>
+            <span className={styles.navTabText}>일기보관함</span>
+          </div>
+          <div className={styles.navTab}>
+            <span className={styles.navTabTextSecondary}>사진보관함</span>
+          </div>
+        </div>
       </nav>
 
       {/* Main Content */}
@@ -36,7 +51,15 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* Footer */}
       <footer className={styles.footer}>
-        <div className={styles.footerContent}>Footer Content</div>
+        <div className={styles.footerContent}>
+          <div className={styles.footerLogo}>민지의 다이어리</div>
+          <div className={styles.footerInfo}>
+            <div className={styles.footerRepresentative}>대표 : 민지</div>
+            <div className={styles.footerCopyright}>
+              Copyright © 2024. 민지 Co., Ltd.
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );
