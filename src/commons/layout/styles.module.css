@@ -110,7 +110,7 @@
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  gap: 0;
+  gap: 16px;
 }
 
 .navTab {
@@ -128,6 +128,9 @@
   font-family: var(--font-family-korean-primary);
   letter-spacing: -0.24px;
   line-height: 24px;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 12px;
 }
 
 .navTabTextSecondary {
