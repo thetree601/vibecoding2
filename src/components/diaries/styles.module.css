@@ -41,17 +41,26 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: var(--background-secondary);
-  border-radius: 8px;
 }
 
-.searchPlaceholder {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--foreground-secondary);
-  font-family: var(--font-family-korean-primary);
-  letter-spacing: 0em;
-  line-height: 24px;
+.searchControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 1050px;
+}
+
+.filterSelect {
+  width: 120px;
+}
+
+.searchInput {
+  width: 320px;
+}
+
+.writeButton {
+  width: 110px;
 }
 
 /* Main Content */
