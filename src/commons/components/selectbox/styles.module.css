@@ -40,6 +40,16 @@
 
 .icon {
   display: inline-flex;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon img {
+  width: 8.6px !important;
+  height: 4.7px !important;
 }
 
 /* Sizes */
@@ -55,6 +65,8 @@
   padding: 12px 10px;
   font-size: 16px;
   border-radius: 8px;
+  min-width: 120px; /* 최소 너비만 설정 */
+  width: auto; /* 내용에 따라 자동 조정 */
 }
 
 .large .trigger {
@@ -119,15 +131,16 @@
 .menu {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100%; /* 트리거 버튼 너비에 맞춤 */
+  min-width: 120px; /* 최소 너비 */
   margin-top: 4px;
-  max-height: 240px;
+  max-height: 288px; /* Figma height */
   overflow: auto;
-  background-color: inherit;
+  background-color: #ffffff;
   border-radius: 8px;
   border: 1px solid #c7c7c7; /* align with trigger */
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  padding: 6px;
+  padding: 0; /* Remove padding to match Figma */
   box-sizing: border-box;
 }
 
@@ -135,10 +148,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 10px;
-  border-radius: 6px;
+  padding: 12px 10px; /* Match Figma 48px height */
+  height: 48px; /* Figma option height */
+  border-radius: 0; /* Remove border radius to match Figma */
   cursor: pointer;
-  color: inherit;
+  color: #5f5f5f; /* Figma text color */
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .option:hover {
@@ -150,7 +166,9 @@
 }
 
 .selected {
-  font-weight: 600;
+  font-weight: 700; /* Figma bold weight */
+  color: #299c00; /* Figma selected text color */
+  background-color: rgba(58, 181, 15, 0.05); /* Figma selected background */
 }
 
 .optionDisabled {
@@ -169,4 +187,5 @@
   display: inline-flex;
   width: 16px;
   height: 16px;
+  margin-left: auto; /* Align to right */
 }

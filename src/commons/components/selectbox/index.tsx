@@ -227,12 +227,14 @@ export const Selectbox: React.FC<SelectboxProps> = ({
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <span className={styles.icon} aria-hidden>
-          {/* Using optimized next/image */}
+          {/* Using optimized next/image with fixed size */}
           <Image
             src="/icons/arrow_drop_down.svg"
             alt=""
             width={iconSize}
             height={iconSize}
+            style={{ width: iconSize, height: iconSize }}
+            sizes="24px"
           />
         </span>
       </button>

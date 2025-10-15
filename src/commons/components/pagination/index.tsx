@@ -1,12 +1,13 @@
-import React from 'react';
-import Image from 'next/image';
-import styles from './styles.module.css';
+import React from "react";
+import Image from "next/image";
+import styles from "./styles.module.css";
 
-export type PaginationVariant = 'primary' | 'secondary' | 'tertiary';
-export type PaginationSize = 'small' | 'medium' | 'large';
-export type PaginationTheme = 'light' | 'dark';
+export type PaginationVariant = "primary" | "secondary" | "tertiary";
+export type PaginationSize = "small" | "medium" | "large";
+export type PaginationTheme = "light" | "dark";
 
-export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface PaginationProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** 현재 페이지 (1-indexed) */
   currentPage: number;
   /** 전체 페이지 수 */
@@ -31,35 +32,21 @@ function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
 }
 
-function getPages(current: number, total: number, maxVisible: number): (number | 'ellipsis')[] {
-  const visible = Math.max(3, maxVisible);
-  if (total <= visible) {
-    return Array.from({ length: total }, (_, i) => i + 1);
-  }
-
-  const half = Math.floor((visible - 2) / 2);
-  const start = clamp(current - half, 2, Math.max(2, total - (visible - 2)));
-  const end = Math.min(total - 1, start + (visible - 3));
-
-  const pages: (number | 'ellipsis')[] = [1];
-  if (start > 2) pages.push('ellipsis');
-  for (let p = start; p <= end; p += 1) pages.push(p);
-  if (end < total - 1) pages.push('ellipsis');
-  pages.push(total);
-  return pages;
+function getPages(): number[] {
+  // Figma 디자인에 맞춰 항상 1,2,3,4,5 버튼을 표시
+  return [1, 2, 3, 4, 5];
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onChange,
-  variant = 'primary',
-  size = 'medium',
-  theme = 'light',
+  variant = "primary",
+  size = "medium",
+  theme = "light",
   showArrows = true,
   showEdgeButtons = false,
-  maxVisible = 7,
-  className = '',
+  className = "",
   ...props
 }) => {
   const clampedCurrent = clamp(currentPage, 1, Math.max(1, totalPages));
@@ -74,56 +61,78 @@ export const Pagination: React.FC<PaginationProps> = ({
     className,
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   const handleChange = (page: number) => {
     const next = clamp(page, 1, totalPages);
     if (next !== clampedCurrent) onChange(next);
   };
 
-  const pages = getPages(clampedCurrent, Math.max(1, totalPages), maxVisible);
+  const pages = getPages();
 
   return (
-    <div className={containerClass} role="navigation" aria-label="Pagination" {...props}>
+    <div
+      className={containerClass}
+      role="navigation"
+      aria-label="Pagination"
+      {...props}
+    >
       {showEdgeButtons && (
         <button
           type="button"
-          className={[styles.item, styles.control, isFirst && styles.disabled].filter(Boolean).join(' ')}
+          className={[styles.item, styles.control, isFirst && styles.disabled]
+            .filter(Boolean)
+            .join(" ")}
           onClick={() => handleChange(1)}
           disabled={isFirst}
           aria-label="First page"
         >
-          <Image className={styles.icon} src="/icons/leftdisabled_outline_light_m.svg" alt="" width={24} height={24} aria-hidden />
+          <Image
+            className={styles.icon}
+            src="/icons/leftdisabled_outline_light_m.svg"
+            alt=""
+            width={16}
+            height={16}
+            aria-hidden
+          />
         </button>
       )}
 
       {showArrows && (
         <button
           type="button"
-          className={[styles.item, styles.control, isFirst && styles.disabled].filter(Boolean).join(' ')}
+          className={[styles.item, styles.control, isFirst && styles.disabled]
+            .filter(Boolean)
+            .join(" ")}
           onClick={() => handleChange(clampedCurrent - 1)}
           disabled={isFirst}
           aria-label="Previous page"
         >
-          <Image className={styles.icon} src="/icons/leftenable_outline_light_m.svg" alt="" width={24} height={24} aria-hidden />
+          <Image
+            className={styles.icon}
+            src={
+              isFirst
+                ? "/icons/leftdisabled_outline_light_m.svg"
+                : "/icons/leftenable_outline_light_m.svg"
+            }
+            alt=""
+            width={16}
+            height={16}
+            aria-hidden
+          />
         </button>
       )}
 
-      {pages.map((p, idx) => {
-        if (p === 'ellipsis') {
-          return (
-            <span key={`e-${idx}`} className={[styles.item, styles.ellipsis].join(' ')} aria-hidden>
-              …
-            </span>
-          );
-        }
+      {pages.map((p) => {
         const active = p === clampedCurrent;
         return (
           <button
             key={p}
             type="button"
-            className={[styles.item, styles.page, active && styles.active].filter(Boolean).join(' ')}
-            aria-current={active ? 'page' : undefined}
+            className={[styles.item, styles.page, active && styles.active]
+              .filter(Boolean)
+              .join(" ")}
+            aria-current={active ? "page" : undefined}
             onClick={() => handleChange(p)}
           >
             {p}
@@ -134,24 +143,46 @@ export const Pagination: React.FC<PaginationProps> = ({
       {showArrows && (
         <button
           type="button"
-          className={[styles.item, styles.control, isLast && styles.disabled].filter(Boolean).join(' ')}
+          className={[styles.item, styles.control, isLast && styles.disabled]
+            .filter(Boolean)
+            .join(" ")}
           onClick={() => handleChange(clampedCurrent + 1)}
           disabled={isLast}
           aria-label="Next page"
         >
-          <Image className={styles.icon} src="/icons/rightenable_outline_light_m.svg" alt="" width={24} height={24} aria-hidden />
+          <Image
+            className={styles.icon}
+            src={
+              isLast
+                ? "/icons/rightdisabled_outline_light_m.svg"
+                : "/icons/rightenable_outline_light_m.svg"
+            }
+            alt=""
+            width={16}
+            height={16}
+            aria-hidden
+          />
         </button>
       )}
 
       {showEdgeButtons && (
         <button
           type="button"
-          className={[styles.item, styles.control, isLast && styles.disabled].filter(Boolean).join(' ')}
+          className={[styles.item, styles.control, isLast && styles.disabled]
+            .filter(Boolean)
+            .join(" ")}
           onClick={() => handleChange(totalPages)}
           disabled={isLast}
           aria-label="Last page"
         >
-          <Image className={styles.icon} src="/icons/rightdisabled_outline_light_m.svg" alt="" width={24} height={24} aria-hidden />
+          <Image
+            className={styles.icon}
+            src="/icons/rightdisabled_outline_light_m.svg"
+            alt=""
+            width={16}
+            height={16}
+            aria-hidden
+          />
         </button>
       )}
     </div>
@@ -159,5 +190,3 @@ export const Pagination: React.FC<PaginationProps> = ({
 };
 
 export default Pagination;
-
-

@@ -10,8 +10,8 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: f5st2q0d)
-조건-피그마) 참고할 공통컴포넌트 노드ID(꺼짐): 3:1547
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: 0oz0z2da)
+조건-피그마) 참고할 공통컴포넌트 노드ID(꺼짐): 3:1281
 조건-피그마) 참고할 공통컴포넌트 노드ID(켜짐): 3:3070
 
 조건-파일경로) 구현될 TSX 파일경로: src/commons/components/toggle/index.tsx
