@@ -1,11 +1,14 @@
-import React from 'react';
-import Image from 'next/image';
-import styles from './styles.module.css';
+"use client";
 
-export interface SearchBarProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  variant?: 'primary' | 'secondary' | 'tertiary';
-  size?: 'small' | 'medium' | 'large';
-  theme?: 'light' | 'dark';
+import React from "react";
+import Image from "next/image";
+import styles from "./styles.module.css";
+
+export interface SearchBarProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
+  variant?: "primary" | "secondary" | "tertiary";
+  size?: "small" | "medium" | "large";
+  theme?: "light" | "dark";
   value?: string;
   disabled?: boolean;
   error?: boolean;
@@ -17,14 +20,14 @@ export interface SearchBarProps extends Omit<React.InputHTMLAttributes<HTMLInput
  * - variant/size/theme 시스템 및 a11y 지원
  */
 export const SearchBar: React.FC<SearchBarProps> = ({
-  variant = 'primary',
-  size = 'medium',
-  theme = 'light',
+  variant = "primary",
+  size = "medium",
+  theme = "light",
   value,
-  placeholder = '검색어를 입력해 주세요.',
+  placeholder = "검색어를 입력해 주세요.",
   disabled = false,
   error = false,
-  className = '',
+  className = "",
   onChange,
   ...props
 }) => {
@@ -36,18 +39,27 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     error && styles.error,
     disabled && styles.disabled,
     className,
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const inputClasses = [
     styles.input,
-    theme === 'dark' ? styles.placeholderDark : styles.placeholderLight,
-  ].filter(Boolean).join(' ');
+    theme === "dark" ? styles.placeholderDark : styles.placeholderLight,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={styles.wrapper}>
       <div className={containerClasses} role="search">
         <span className={styles.icon} aria-hidden="true">
-          <Image src="/icons/search_outline_light_m.svg" alt="" width={24} height={24} />
+          <Image
+            src="/icons/search_outline_light_m.svg"
+            alt=""
+            width={24}
+            height={24}
+          />
         </span>
         <input
           className={inputClasses}
@@ -65,5 +77,3 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 };
 
 export default SearchBar;
-
-
