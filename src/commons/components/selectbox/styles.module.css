@@ -1,6 +1,7 @@
 .selectbox {
   display: inline-flex;
   flex-direction: column;
+  position: relative; /* anchor for absolute menu */
 }
 
 /* Trigger Button */
@@ -129,13 +130,16 @@
 
 /* Menu */
 .menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  width: 100%; /* 트리거 버튼 너비에 맞춤 */
+  width: 100%; /* match trigger width */
   min-width: 120px; /* 최소 너비 */
-  margin-top: 4px;
-  max-height: 288px; /* Figma height */
-  overflow: auto;
+  max-height: none; /* no scroll */
+  overflow: visible; /* no scroll */
   background-color: #ffffff;
   border-radius: 8px;
   border: 1px solid #c7c7c7; /* align with trigger */

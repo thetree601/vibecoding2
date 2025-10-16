@@ -1,21 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./styles.module.css";
 import { Selectbox } from "../../commons/components/selectbox";
 import { SearchBar } from "../../commons/components/searchbar";
 import { Button } from "../../commons/components/button";
+import Image from "next/image";
+import { EMOTIONS, EMOTION_ASSETS } from "../../commons/constants/enum";
 
 export default function Diaries() {
-  const [filterValue, setFilterValue] = useState<string>("");
+  const [filterValue, setFilterValue] = useState<string>("all");
   const [searchValue, setSearchValue] = useState<string>("");
 
-  const filterOptions = [
-    { label: "전체", value: "all" },
-    { label: "최신순", value: "latest" },
-    { label: "오래된순", value: "oldest" },
-    { label: "제목순", value: "title" },
-  ];
+  const filterOptions = useMemo(
+    () => [
+      { label: "전체", value: "all" },
+      ...EMOTIONS.map((emotion) => ({
+        label: EMOTION_ASSETS[emotion].label,
+        value: emotion,
+      })),
+    ],
+    []
+  );
 
   const handleFilterChange = (value: string) => {
     setFilterValue(value);
@@ -61,16 +67,23 @@ export default function Diaries() {
                 placeholder="검색어를 입력해 주세요."
                 className={styles.searchInput}
               />
-              <Button
-                variant="primary"
-                theme="light"
-                size="medium"
-                onClick={handleWriteDiary}
-                className={styles.writeButton}
-              >
-                일기쓰기
-              </Button>
             </div>
+            <Button
+              variant="primary"
+              theme="light"
+              size="medium"
+              onClick={handleWriteDiary}
+              className={styles.writeButton}
+            >
+              <Image
+                src="/icons/plus_outline_light_m.svg"
+                alt=""
+                width={24}
+                height={24}
+                style={{ marginRight: 8 }}
+              />
+              일기쓰기
+            </Button>
           </div>
         </div>
       </div>
