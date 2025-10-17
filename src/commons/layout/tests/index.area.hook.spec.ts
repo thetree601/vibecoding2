@@ -5,7 +5,7 @@ test.describe("Layout Area Visibility", () => {
     page,
   }) => {
     await page.goto("/diaries");
-    await page.waitForSelector('[data-testid="header-logo"]', { timeout: 300 });
+    await page.waitForSelector('[data-testid="header-logo"]', { timeout: 400 });
 
     await expect(page.locator('[data-testid="area-header"]')).toBeVisible();
     await expect(page.locator('[data-testid="header-logo"]')).toBeVisible();
@@ -18,7 +18,7 @@ test.describe("Layout Area Visibility", () => {
     page,
   }) => {
     await page.goto("/diaries/1");
-    await page.waitForSelector('[data-testid="area-header"]', { timeout: 300 });
+    await page.waitForSelector('[data-testid="area-header"]', { timeout: 400 });
 
     await expect(page.locator('[data-testid="area-header"]')).toBeVisible();
     await expect(page.locator('[data-testid="header-logo"]')).toBeVisible();

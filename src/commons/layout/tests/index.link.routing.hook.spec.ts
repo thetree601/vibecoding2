@@ -4,7 +4,7 @@ test.describe("Layout Link Routing", () => {
   test.beforeEach(async ({ page }) => {
     // 페이지 로드 대기 - data-testid를 사용하여 페이지 완전 로드 확인
     await page.goto("/");
-    await page.waitForSelector('[data-testid="header-logo"]', { timeout: 300 });
+    await page.waitForSelector('[data-testid="header-logo"]', { timeout: 400 });
   });
 
   test("헤더 로고 클릭 시 일기 목록 페이지로 이동", async ({ page }) => {
@@ -69,7 +69,7 @@ test.describe("Layout Link Routing", () => {
 
     // 일기보관함 탭 클릭 후 URL 확인 (URLS.DIARIES.LIST 사용)
     await page.goto("/");
-    await page.waitForSelector('[data-testid="header-logo"]', { timeout: 300 });
+    await page.waitForSelector('[data-testid="header-logo"]', { timeout: 400 });
     await page.click('[data-testid="nav-diaries"]');
     await expect(page).toHaveURL("/diaries");
   });

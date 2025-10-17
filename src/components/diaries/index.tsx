@@ -12,6 +12,7 @@ import {
   EMOTION_ASSETS,
   Emotion,
 } from "../../commons/constants/enum";
+import { useDiaryModal } from "./hooks/index.link.modal.hook";
 
 // Mock data for diary cards - 피그마 디자인과 정확히 일치하도록 수정
 const mockDiaries = [
@@ -160,6 +161,7 @@ export default function Diaries() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const totalPages = 5; // Mock total pages
+  const { openDiaryModal } = useDiaryModal();
 
   const filterOptions = useMemo(
     () => [
@@ -181,8 +183,7 @@ export default function Diaries() {
   };
 
   const handleWriteDiary = () => {
-    // TODO: Navigate to diary creation page
-    console.log("일기쓰기 버튼 클릭");
+    openDiaryModal();
   };
 
   const handlePageChange = (page: number) => {
@@ -190,7 +191,7 @@ export default function Diaries() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="diaries-page">
       {/* Gap */}
       <div className={styles.gap}>
         <div className={styles.gapInner}></div>
@@ -227,6 +228,7 @@ export default function Diaries() {
               size="medium"
               onClick={handleWriteDiary}
               className={styles.writeButton}
+              data-testid="write-diary-button"
             >
               <Image
                 src="/icons/plus_outline_light_m.svg"

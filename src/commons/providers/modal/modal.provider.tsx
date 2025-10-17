@@ -1,7 +1,13 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
-import { createPortal } from 'react-dom';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+} from "react";
+import { createPortal } from "react-dom";
 
 interface ModalContextType {
   isOpen: boolean;
@@ -15,7 +21,7 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
 export const useModal = () => {
   const context = useContext(ModalContext);
   if (context === undefined) {
-    throw new Error('useModal must be used within a ModalProvider');
+    throw new Error("useModal must be used within a ModalProvider");
   }
   return context;
 };
@@ -61,7 +67,11 @@ interface ModalPortalProps {
   onClose: () => void;
 }
 
-const ModalPortal: React.FC<ModalPortalProps> = ({ children, isOpen, onClose }) => {
+const ModalPortal: React.FC<ModalPortalProps> = ({
+  children,
+  isOpen,
+  onClose,
+}) => {
   if (!isOpen) return null;
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -70,7 +80,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({ children, isOpen, onClose }) 
     }
   };
 
-  const modalRoot = document.getElementById('modal-root') || document.body;
+  const modalRoot = document.getElementById("modal-root") || document.body;
 
   return createPortal(
     <div

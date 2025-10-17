@@ -9,11 +9,13 @@ import {
   EMOTION_ASSETS,
   Emotion,
 } from "../../commons/constants/enum";
+import { useModal } from "../../commons/providers/modal/modal.provider";
 
 export default function DiariesNew() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotion | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const { closeModal } = useModal();
 
   const handleEmotionChange = (emotion: Emotion) => {
     setSelectedEmotion(emotion);
@@ -28,8 +30,7 @@ export default function DiariesNew() {
   };
 
   const handleClose = () => {
-    // TODO: Implement close modal logic
-    console.log("Close modal");
+    closeModal();
   };
 
   const handleRegister = () => {

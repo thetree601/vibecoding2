@@ -1,4 +1,6 @@
-import { useRouter, usePathname } from "next/navigation";
+"use client";
+
+import { usePathname, useRouter } from "next/navigation";
 import { URLS } from "@/commons/constants/url";
 
 /**
