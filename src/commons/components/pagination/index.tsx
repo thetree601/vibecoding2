@@ -39,7 +39,11 @@ function getPages(
 ): number[] {
   // maxVisible을 사용하여 페이지 버튼 개수 제한
   const visiblePages = Math.min(maxVisible, totalPages);
-  const startPage = Math.max(1, currentPage - Math.floor(visiblePages / 2));
+
+  // 현재 페이지가 속한 그룹의 시작 페이지를 계산
+  const groupStart =
+    Math.floor((currentPage - 1) / visiblePages) * visiblePages + 1;
+  const startPage = Math.max(1, groupStart);
   const endPage = Math.min(totalPages, startPage + visiblePages - 1);
 
   const pages: number[] = [];
