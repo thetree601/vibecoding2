@@ -144,6 +144,30 @@
   line-height: 24px;
 }
 
+/* Active Tab Styles */
+.activeTab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 8px;
+  cursor: pointer;
+  background-color: var(--background-secondary);
+  border-radius: 8px;
+}
+
+.tabTextActive {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--foreground);
+  font-family: var(--font-family-korean-primary);
+  letter-spacing: -0.24px;
+  line-height: 24px;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 12px;
+}
+
 /* Main Content */
 .main {
   width: 100%;

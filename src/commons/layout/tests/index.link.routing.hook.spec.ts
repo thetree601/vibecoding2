@@ -73,4 +73,63 @@ test.describe("Layout Link Routing", () => {
     await page.click('[data-testid="nav-diaries"]');
     await expect(page).toHaveURL("/diaries");
   });
+
+  test("일기보관함 탭 클릭 시 활성 상태가 변경되는지 확인", async ({
+    page,
+  }) => {
+    // 일기보관함 탭 클릭
+    await page.click('[data-testid="nav-diaries"]');
+
+    // URL이 /diaries로 변경되었는지 확인
+    await expect(page).toHaveURL("/diaries");
+
+    // 일기보관함 탭이 활성 상태인지 확인 (activeTab 클래스 적용)
+    const diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).toHaveClass(/activeTab/);
+
+    // 일기보관함 탭 텍스트가 활성 상태인지 확인 (tabTextActive 클래스 적용)
+    const diariesTabText = diariesTab.locator("span");
+    await expect(diariesTabText).toHaveClass(/tabTextActive/);
+  });
+
+  test("사진보관함 탭 클릭 시 활성 상태가 변경되는지 확인", async ({
+    page,
+  }) => {
+    // 사진보관함 탭 클릭
+    await page.click('[data-testid="nav-pictures"]');
+
+    // URL이 /pictures로 변경되었는지 확인
+    await expect(page).toHaveURL("/pictures");
+
+    // 사진보관함 탭이 활성 상태인지 확인 (activeTab 클래스 적용)
+    const picturesTab = page.locator('[data-testid="nav-pictures"]');
+    await expect(picturesTab).toHaveClass(/activeTab/);
+
+    // 사진보관함 탭 텍스트가 활성 상태인지 확인 (tabTextActive 클래스 적용)
+    const picturesTabText = picturesTab.locator("span");
+    await expect(picturesTabText).toHaveClass(/tabTextActive/);
+  });
+
+  test("탭 간 전환 시 활성 상태가 올바르게 변경되는지 확인", async ({
+    page,
+  }) => {
+    // 일기보관함 탭 클릭
+    await page.click('[data-testid="nav-diaries"]');
+    await expect(page).toHaveURL("/diaries");
+
+    // 일기보관함이 활성 상태인지 확인
+    const diariesTab = page.locator('[data-testid="nav-diaries"]');
+    await expect(diariesTab).toHaveClass(/activeTab/);
+
+    // 사진보관함 탭 클릭
+    await page.click('[data-testid="nav-pictures"]');
+    await expect(page).toHaveURL("/pictures");
+
+    // 사진보관함이 활성 상태인지 확인
+    const picturesTab = page.locator('[data-testid="nav-pictures"]');
+    await expect(picturesTab).toHaveClass(/activeTab/);
+
+    // 일기보관함이 비활성 상태인지 확인
+    await expect(diariesTab).not.toHaveClass(/activeTab/);
+  });
 });

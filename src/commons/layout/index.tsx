@@ -10,8 +10,13 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const { handleLogoClick, handleDiariesClick, handlePicturesClick } =
-    useLinkRouting();
+  const {
+    handleLogoClick,
+    handleDiariesClick,
+    handlePicturesClick,
+    isDiariesActive,
+    isPicturesActive,
+  } = useLinkRouting();
 
   return (
     <div className={styles.container}>
@@ -60,18 +65,32 @@ export default function Layout({ children }: LayoutProps) {
         <div className={styles.navigationInner}>
           <div className={styles.navigationContent}>
             <div
-              className={styles.navTab}
+              className={isDiariesActive ? styles.activeTab : styles.navTab}
               onClick={handleDiariesClick}
               data-testid="nav-diaries"
             >
-              <span className={styles.navTabText}>일기보관함</span>
+              <span
+                className={
+                  isDiariesActive ? styles.tabTextActive : styles.navTabText
+                }
+              >
+                일기보관함
+              </span>
             </div>
             <div
-              className={styles.navTab}
+              className={isPicturesActive ? styles.activeTab : styles.navTab}
               onClick={handlePicturesClick}
               data-testid="nav-pictures"
             >
-              <span className={styles.navTabTextSecondary}>사진보관함</span>
+              <span
+                className={
+                  isPicturesActive
+                    ? styles.tabTextActive
+                    : styles.navTabTextSecondary
+                }
+              >
+                사진보관함
+              </span>
             </div>
           </div>
         </div>
