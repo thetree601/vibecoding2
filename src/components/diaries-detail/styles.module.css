@@ -241,3 +241,114 @@
     letter-spacing: -0.16px;
   }
 }
+
+/* Retrospect Section - 피그마 3:1098, 3:1105 */
+.retrospectSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Retrospect Input - 피그마 3:1098 (1168x85) */
+.retrospectInput {
+  width: 100%;
+  height: 85px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.retrospectLabel {
+  font-family: var(--font-family-korean-primary);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  color: var(--foreground);
+  margin: 0;
+  padding: 0;
+}
+
+.retrospectInputFrame {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.retrospectInputField {
+  flex: 1;
+  height: 48px;
+}
+
+.retrospectSubmitButton {
+  width: 51px;
+  height: 48px;
+}
+
+/* Retrospect List - 피그마 3:1105 (1168x72) */
+.retrospectList {
+  width: 100%;
+  border-radius: 16px;
+  background-color: var(--background);
+}
+
+.retrospectItem {
+  width: 100%;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.retrospectText {
+  font-family: var(--font-family-korean-primary);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: var(--foreground);
+}
+
+.retrospectDate {
+  font-family: var(--font-family-korean-primary);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: var(--gray-60);
+}
+
+.retrospectDivider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-secondary);
+  margin: 12px 0;
+}
+
+/* Responsive adjustments for desktop */
+@media (min-width: 768px) {
+  .retrospectLabel {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.18px;
+  }
+
+  .retrospectText {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.16px;
+  }
+
+  .retrospectDate {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.16px;
+  }
+}
