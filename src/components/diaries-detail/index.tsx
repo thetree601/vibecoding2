@@ -63,18 +63,18 @@ const DiariesDetail: React.FC<DiariesDetailProps> = () => {
       {/* Detail Footer Section - 피그마 3:1092 */}
       <div className={styles.footerSection}>
         <Button
-          variant="secondary"
+          variant="tertiary"
           theme="light"
           size="medium"
-          className="w-[51px]"
+          className={styles.editButton}
         >
           수정
         </Button>
         <Button
-          variant="secondary"
+          variant="tertiary"
           theme="light"
           size="medium"
-          className="w-[51px]"
+          className={styles.deleteButton}
         >
           삭제
         </Button>

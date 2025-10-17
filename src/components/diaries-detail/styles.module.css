@@ -5,6 +5,7 @@
   width: 100%;
   max-width: 1168px;
   margin: 0 auto;
+  margin-top: 64px;
   gap: 0;
 }
 
@@ -14,6 +15,7 @@
   height: 84px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
 /* 타이틀 프레임 - 피그마 3:1074 (1168x36) */
@@ -22,7 +24,8 @@
   height: 36px;
   display: flex;
   align-items: center;
-  border-bottom: 2px solid #000000;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #000000;
 }
 
 .titleText {
@@ -43,7 +46,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
+  padding: 16px 0;
 }
 
 .emotionContainer {
@@ -100,7 +103,8 @@
   height: 169px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
+  margin-top: 24px;
 }
 
 /* 내용 영역 - 피그마 3:1084 (1168x133) */
@@ -109,7 +113,7 @@
   height: 133px;
   display: flex;
   flex-direction: column;
-  gap: 33px;
+  gap: 13px;
 }
 
 .contentLabel {
@@ -180,6 +184,16 @@
   justify-content: flex-end;
   gap: 16px;
   border-bottom: 1px solid #000000;
+  margin-top: 48px;
+  padding-bottom: 26px;
+}
+
+/* 버튼 커스텀 스타일 */
+.footerSection .editButton,
+.footerSection .deleteButton {
+  width: 51px;
+  height: 40px;
+  background-color: #ffffff;
 }
 
 /* Responsive adjustments for desktop */
