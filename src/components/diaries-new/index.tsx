@@ -37,6 +37,9 @@ export default function DiariesNew() {
     console.log("Register diary", { selectedEmotion, title, content });
   };
 
+  const isRegisterDisabled =
+    !selectedEmotion || !title.trim() || !content.trim();
+
   return (
     <div className={styles.wrapper}>
       {/* Header section */}
@@ -119,6 +122,7 @@ export default function DiariesNew() {
           theme="light"
           size="medium"
           onClick={handleRegister}
+          disabled={isRegisterDisabled}
           className={styles.registerButton}
         >
           등록하기
