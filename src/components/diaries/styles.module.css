@@ -219,15 +219,4 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: var(--background-secondary);
-  border-radius: 8px;
-}
-
-.paginationPlaceholder {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--foreground-secondary);
-  font-family: var(--font-family-korean-primary);
-  letter-spacing: 0em;
-  line-height: 20px;
 }

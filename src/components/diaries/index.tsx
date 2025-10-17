@@ -5,6 +5,7 @@ import styles from "./styles.module.css";
 import { Selectbox } from "../../commons/components/selectbox";
 import { SearchBar } from "../../commons/components/searchbar";
 import { Button } from "../../commons/components/button";
+import { Pagination } from "../../commons/components/pagination";
 import Image from "next/image";
 import {
   EMOTIONS,
@@ -157,6 +158,8 @@ function DiaryCard({ diary }: DiaryCardProps) {
 export default function Diaries() {
   const [filterValue, setFilterValue] = useState<string>("all");
   const [searchValue, setSearchValue] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const totalPages = 5; // Mock total pages
 
   const filterOptions = useMemo(
     () => [
@@ -180,6 +183,10 @@ export default function Diaries() {
   const handleWriteDiary = () => {
     // TODO: Navigate to diary creation page
     console.log("일기쓰기 버튼 클릭");
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -261,9 +268,17 @@ export default function Diaries() {
       <div className={styles.pagination}>
         <div className={styles.paginationInner}>
           <div className={styles.paginationContent}>
-            <div className={styles.paginationPlaceholder}>
-              페이지네이션 영역
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onChange={handlePageChange}
+              variant="primary"
+              theme="light"
+              size="medium"
+              showArrows={true}
+              showEdgeButtons={false}
+              maxVisible={5}
+            />
           </div>
         </div>
       </div>
