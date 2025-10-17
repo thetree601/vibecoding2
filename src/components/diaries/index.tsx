@@ -131,8 +131,8 @@ function DiaryCard({ diary }: DiaryCardProps) {
           <Image
             src="/icons/close_outline_light_m.svg"
             alt="닫기"
-            width={24}
-            height={24}
+            fill
+            className={styles.closeIcon}
           />
         </button>
       </div>
