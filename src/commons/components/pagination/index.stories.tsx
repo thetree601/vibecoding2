@@ -123,3 +123,28 @@ export const DenseMaxVisible: Story = {
     maxVisible: 5,
   },
 };
+
+export const DisabledStates: Story = {
+  render: (args) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div>
+        <h3 style={{ marginBottom: 8, fontSize: 14, fontWeight: 600 }}>
+          첫 페이지 (왼쪽 화살표 비활성화)
+        </h3>
+        <Pagination {...args} currentPage={1} totalPages={10} />
+      </div>
+      <div>
+        <h3 style={{ marginBottom: 8, fontSize: 14, fontWeight: 600 }}>
+          마지막 페이지 (오른쪽 화살표 비활성화)
+        </h3>
+        <Pagination {...args} currentPage={10} totalPages={10} />
+      </div>
+      <div>
+        <h3 style={{ marginBottom: 8, fontSize: 14, fontWeight: 600 }}>
+          중간 페이지 (양쪽 화살표 활성화)
+        </h3>
+        <Pagination {...args} currentPage={5} totalPages={10} />
+      </div>
+    </div>
+  ),
+};

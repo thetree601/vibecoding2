@@ -32,9 +32,22 @@ function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
 }
 
-function getPages(): number[] {
-  // Figma 디자인에 맞춰 항상 1,2,3,4,5 버튼을 표시
-  return [1, 2, 3, 4, 5];
+function getPages(
+  currentPage: number,
+  totalPages: number,
+  maxVisible: number = 5
+): number[] {
+  // maxVisible을 사용하여 페이지 버튼 개수 제한
+  const visiblePages = Math.min(maxVisible, totalPages);
+  const startPage = Math.max(1, currentPage - Math.floor(visiblePages / 2));
+  const endPage = Math.min(totalPages, startPage + visiblePages - 1);
+
+  const pages: number[] = [];
+  for (let i = startPage; i <= endPage; i++) {
+    pages.push(i);
+  }
+
+  return pages;
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
@@ -69,7 +82,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     if (next !== clampedCurrent) onChange(next);
   };
 
-  const pages = getPages();
+  const pages = getPages(clampedCurrent, totalPages, maxVisible);
 
   return (
     <div
