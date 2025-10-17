@@ -45,15 +45,6 @@
   font-weight: 400 !important;
 }
 
-.disabled {
-  cursor: not-allowed;
-  background: #f8f8fa; /* coolGray-01 for disabled state */
-}
-
-.disabled .icon {
-  filter: grayscale(100%) brightness(0.8);
-}
-
 /* Variants */
 .primary .item {
   border: none; /* 테두리 없음 */
@@ -133,4 +124,14 @@
 .dark .active {
   border: none; /* 테두리 없음 */
   color: #6da5fa; /* blue-40 */
+}
+
+/* 오른쪽 화살표 버튼이 왼쪽과 동일한 disabled 스타일을 가지도록 보장 */
+.disabled {
+  cursor: not-allowed;
+  background: #f8f8fa; /* coolGray-01 for disabled state - 왼쪽과 동일 */
+}
+
+.disabled .icon {
+  filter: grayscale(100%) brightness(0.8); /* 왼쪽과 동일한 필터 */
 }

@@ -1,0 +1,192 @@
+/* Container - Main flexbox container */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1168px;
+  margin: 0 auto;
+}
+
+/* Gap utilities */
+.gap64 {
+  height: 64px;
+}
+
+.gap24 {
+  height: 24px;
+}
+
+.gap16 {
+  height: 16px;
+}
+
+/* Detail Title - 1168 * 84 */
+.detailTitle {
+  width: 100%;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 16px;
+}
+
+.detailTitle h1 {
+  margin: 0;
+  font-size: var(--typography-korean-mobile-headline01-font-size);
+  font-weight: var(--typography-korean-mobile-headline01-font-weight);
+  line-height: var(--typography-korean-mobile-headline01-line-height);
+  font-family: var(--typography-korean-mobile-headline01-font-family);
+  color: var(--foreground);
+}
+
+/* Detail Content - 1168 * 169 */
+.detailContent {
+  width: 100%;
+  height: 169px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.detailContent p {
+  margin: 0;
+  font-size: var(--typography-korean-mobile-body01-font-size);
+  font-weight: var(--typography-korean-mobile-body01-font-weight);
+  line-height: var(--typography-korean-mobile-body01-line-height);
+  font-family: var(--typography-korean-mobile-body01-font-family);
+  color: var(--foreground);
+}
+
+/* Detail Footer - 1168 * 56 */
+.detailFooter {
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 16px;
+}
+
+.footerContent {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.footerContent span {
+  font-size: var(--typography-korean-mobile-body02-font-size);
+  font-weight: var(--typography-korean-mobile-body02-font-weight);
+  line-height: var(--typography-korean-mobile-body02-line-height);
+  font-family: var(--typography-korean-mobile-body02-font-family);
+  color: var(--foreground-secondary);
+}
+
+/* Retrospect Input - 1168 * 85 */
+.retrospectInput {
+  width: 100%;
+  height: 85px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.retrospectInput textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+  font-size: var(--typography-korean-mobile-body02-font-size);
+  font-weight: var(--typography-korean-mobile-body02-font-weight);
+  line-height: var(--typography-korean-mobile-body02-line-height);
+  font-family: var(--typography-korean-mobile-body02-font-family);
+  color: var(--foreground);
+}
+
+.retrospectInput textarea::placeholder {
+  color: var(--foreground-tertiary);
+}
+
+/* Retrospect List - 1168 * 72 */
+.retrospectList {
+  width: 100%;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.retrospectItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4px 0;
+}
+
+.retrospectItem span {
+  font-size: var(--typography-korean-mobile-body02-font-size);
+  font-weight: var(--typography-korean-mobile-body02-font-weight);
+  line-height: var(--typography-korean-mobile-body02-line-height);
+  font-family: var(--typography-korean-mobile-body02-font-family);
+  color: var(--foreground);
+}
+
+/* Responsive adjustments for desktop */
+@media (min-width: 768px) {
+
+  .detailTitle h1 {
+    font-size: var(--typography-korean-desktop-headline01-font-size);
+    font-weight: var(--typography-korean-desktop-headline01-font-weight);
+    line-height: var(--typography-korean-desktop-headline01-line-height);
+    font-family: var(--typography-korean-desktop-headline01-font-family);
+  }
+
+  .detailContent p {
+    font-size: var(--typography-korean-desktop-body01-font-size);
+    font-weight: var(--typography-korean-desktop-body01-font-weight);
+    line-height: var(--typography-korean-desktop-body01-line-height);
+    font-family: var(--typography-korean-desktop-body01-font-family);
+  }
+
+  .footerContent span {
+    font-size: var(--typography-korean-desktop-body02-font-size);
+    font-weight: var(--typography-korean-desktop-body02-font-weight);
+    line-height: var(--typography-korean-desktop-body02-line-height);
+    font-family: var(--typography-korean-desktop-body02-font-family);
+  }
+
+  .retrospectInput textarea {
+    font-size: var(--typography-korean-desktop-body02-font-size);
+    font-weight: var(--typography-korean-desktop-body02-font-weight);
+    line-height: var(--typography-korean-desktop-body02-line-height);
+    font-family: var(--typography-korean-desktop-body02-font-family);
+  }
+
+  .retrospectItem span {
+    font-size: var(--typography-korean-desktop-body02-font-size);
+    font-weight: var(--typography-korean-desktop-body02-font-weight);
+    line-height: var(--typography-korean-desktop-body02-line-height);
+    font-family: var(--typography-korean-desktop-body02-font-family);
+  }
+}
