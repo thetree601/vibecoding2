@@ -3,6 +3,7 @@
 import React, {
   useCallback,
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -204,10 +205,7 @@ export const Selectbox: React.FC<SelectboxProps> = ({
     .filter(Boolean)
     .join(" ");
 
-  const listboxId = useMemo(
-    () => `listbox-${Math.random().toString(36).slice(2, 9)}`,
-    []
-  );
+  const listboxId = useId();
 
   // Figma node 3:1561 uses a 24dp caret asset within a 48px trigger
   const iconSize = 24;
