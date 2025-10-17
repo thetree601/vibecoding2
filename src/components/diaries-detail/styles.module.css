@@ -22,7 +22,7 @@
   height: 36px;
   display: flex;
   align-items: center;
-  border-bottom: 2px solid var(--gray-black);
+  border-bottom: 2px solid #000000;
 }
 
 .titleText {
@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 0;
+  padding: 8px 0;
 }
 
 .emotionContainer {
@@ -100,6 +100,7 @@
   height: 169px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
 /* 내용 영역 - 피그마 3:1084 (1168x133) */
@@ -108,7 +109,7 @@
   height: 133px;
   display: flex;
   flex-direction: column;
-  padding: 0;
+  gap: 33px;
 }
 
 .contentLabel {
@@ -170,15 +171,15 @@
   color: #1c1c1c;
 }
 
-/* Footer Section - 피그마 3:1092 (1168x56) */
+/* Footer Section - 피그마 3:1092 (1168x40) */
 .footerSection {
   width: 100%;
-  height: 56px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 16px;
-  border-bottom: 1px solid var(--gray-black);
+  border-bottom: 1px solid #000000;
 }
 
 /* Responsive adjustments for desktop */
