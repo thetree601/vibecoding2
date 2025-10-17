@@ -1,19 +1,31 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import styles from "./styles.module.css";
+import { useLinkRouting } from "./hooks/index.link.routing.hook";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const { handleLogoClick, handleDiariesClick, handlePicturesClick } =
+    useLinkRouting();
+
   return (
     <div className={styles.container}>
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.headerContent}>
-            <div className={styles.logo}>민지의 다이어리</div>
+            <div
+              className={styles.logo}
+              onClick={handleLogoClick}
+              data-testid="header-logo"
+            >
+              민지의 다이어리
+            </div>
           </div>
         </div>
       </header>
@@ -47,10 +59,18 @@ export default function Layout({ children }: LayoutProps) {
       <nav className={styles.navigation}>
         <div className={styles.navigationInner}>
           <div className={styles.navigationContent}>
-            <div className={styles.navTab}>
+            <div
+              className={styles.navTab}
+              onClick={handleDiariesClick}
+              data-testid="nav-diaries"
+            >
               <span className={styles.navTabText}>일기보관함</span>
             </div>
-            <div className={styles.navTab}>
+            <div
+              className={styles.navTab}
+              onClick={handlePicturesClick}
+              data-testid="nav-pictures"
+            >
               <span className={styles.navTabTextSecondary}>사진보관함</span>
             </div>
           </div>
