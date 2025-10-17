@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { URLS } from "@/commons/constants/url";
 
 /**
@@ -10,6 +11,18 @@ import { URLS } from "@/commons/constants/url";
 export const useLinkRouting = () => {
   const router = useRouter();
   const pathname = usePathname();
+
+  // 하이드레이션 불일치 방지를 위한 상태 관리
+  const [isDiariesActive, setIsDiariesActive] = useState(false);
+  const [isPicturesActive, setIsPicturesActive] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // 클라이언트 사이드에서만 활성 상태 계산
+  useEffect(() => {
+    setIsMounted(true);
+    setIsDiariesActive(pathname === URLS.DIARIES.LIST);
+    setIsPicturesActive(pathname === URLS.PICTURES.LIST);
+  }, [pathname]);
 
   /**
    * 헤더 로고 클릭 시 일기 목록 페이지로 이동
@@ -32,21 +45,11 @@ export const useLinkRouting = () => {
     router.push(URLS.PICTURES.LIST);
   };
 
-  /**
-   * 현재 경로가 일기보관함 탭과 일치하는지 확인
-   */
-  const isDiariesActive = pathname === URLS.DIARIES.LIST;
-
-  /**
-   * 현재 경로가 사진보관함 탭과 일치하는지 확인
-   */
-  const isPicturesActive = pathname === URLS.PICTURES.LIST;
-
   return {
     handleLogoClick,
     handleDiariesClick,
     handlePicturesClick,
-    isDiariesActive,
-    isPicturesActive,
+    isDiariesActive: isMounted ? isDiariesActive : false,
+    isPicturesActive: isMounted ? isPicturesActive : false,
   };
 };
