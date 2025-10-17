@@ -71,7 +71,9 @@ export default function Layout({ children }: LayoutProps) {
             >
               <span
                 className={
-                  isDiariesActive ? styles.tabTextActive : styles.navTabText
+                  isDiariesActive
+                    ? styles.tabTextActive
+                    : styles.navTabTextSecondary
                 }
               >
                 일기보관함
