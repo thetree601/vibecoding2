@@ -47,10 +47,12 @@ export default function Layout({ children }: LayoutProps) {
         </header>
       )}
 
-      {/* Gap */}
-      <div className={styles.gap}>
-        <div className={styles.gapInner}></div>
-      </div>
+      {/* Gap after header (only when banner or navigation is visible) */}
+      {(bannerVisible || navigationVisible) && (
+        <div className={styles.gap}>
+          <div className={styles.gapInner}></div>
+        </div>
+      )}
 
       {/* Banner */}
       {bannerVisible && (
@@ -69,10 +71,12 @@ export default function Layout({ children }: LayoutProps) {
         </section>
       )}
 
-      {/* Gap */}
-      <div className={styles.gap}>
-        <div className={styles.gapInner}></div>
-      </div>
+      {/* Gap between banner and navigation (only when both are visible) */}
+      {bannerVisible && navigationVisible && (
+        <div className={styles.gap}>
+          <div className={styles.gapInner}></div>
+        </div>
+      )}
 
       {/* Navigation */}
       {navigationVisible && (
