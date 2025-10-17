@@ -46,6 +46,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   theme = "light",
   showArrows = true,
   showEdgeButtons = false,
+  maxVisible,
   className = "",
   ...props
 }) => {
