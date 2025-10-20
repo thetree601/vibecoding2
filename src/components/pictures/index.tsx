@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 import Selectbox, {
   type SelectboxOption,
 } from "@/commons/components/selectbox";
+import { usePicturesBinding } from "./hooks/index.binding.hook";
 
 export default function PicturesUI(): JSX.Element {
   const options: SelectboxOption[] = useMemo(
@@ -19,16 +20,8 @@ export default function PicturesUI(): JSX.Element {
 
   const [filter, setFilter] = useState<string>("all");
 
-  // Mock images: all use the same asset as required (9 images for 3x3 grid)
-  const images = useMemo(
-    () =>
-      new Array(9).fill(null).map((_, idx) => ({
-        id: idx,
-        src: "/images/dog-1.jpg",
-        alt: "dog",
-      })),
-    []
-  );
+  const { images, isInitialLoading, isError, errorMessage, sentinelRef } =
+    usePicturesBinding();
 
   return (
     <section className={styles.container}>
@@ -57,21 +50,38 @@ export default function PicturesUI(): JSX.Element {
 
       <main className={styles.main}>
         <div className={styles.mainInner}>
-          <div className={styles.grid}>
-            {images.map((img) => (
-              <div key={img.id} className={styles.card}>
-                <div className={styles.imageWrap}>
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    sizes="(max-width: 1168px) 33vw, 292px"
-                    className={styles.image}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+          {isError ? (
+            <div role="alert" aria-live="assertive">
+              {errorMessage ?? "에러가 발생했습니다."}
+            </div>
+          ) : (
+            <div className={styles.grid} data-testid="pictures-grid">
+              {(isInitialLoading ? new Array(6).fill(null) : images).map(
+                (item, idx) => (
+                  <div key={idx} className={styles.card}>
+                    <div className={styles.imageWrap}>
+                      {isInitialLoading ? (
+                        <div
+                          data-testid="skeleton"
+                          className={styles.skeleton}
+                        />
+                      ) : (
+                        <Image
+                          src={item as string}
+                          alt="dog"
+                          fill
+                          sizes="(max-width: 1168px) 640px"
+                          className={styles.image}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )
+              )}
+              {/* sentinel for infinite scroll */}
+              <div ref={sentinelRef} data-testid="pictures-sentinel" />
+            </div>
+          )}
         </div>
       </main>
     </section>
