@@ -114,13 +114,30 @@ export const Modal: React.FC<ModalProps> = ({
   const isDangerVariant = variant === "danger";
 
   return (
-    <div className={modalClasses} data-testid="cancel-modal">
+    <div
+      className={modalClasses}
+      data-testid={title === "등록 완료" ? "success-modal" : "cancel-modal"}
+    >
       <div className={styles.content}>
         <div className={styles.textArea}>
-          <h2 className={styles.title} data-testid="cancel-modal-title">
+          <h2
+            className={styles.title}
+            data-testid={
+              title === "등록 완료"
+                ? "success-modal-title"
+                : "cancel-modal-title"
+            }
+          >
             {title}
           </h2>
-          <p className={styles.description} data-testid="cancel-modal-content">
+          <p
+            className={styles.description}
+            data-testid={
+              title === "등록 완료"
+                ? "success-modal-content"
+                : "cancel-modal-content"
+            }
+          >
             {content}
           </p>
           {/* variant 사용 예시 (향후 확장 가능) */}
@@ -137,6 +154,11 @@ export const Modal: React.FC<ModalProps> = ({
               size="medium"
               onClick={onSingleAction}
               className={styles.singleButton}
+              data-testid={
+                title === "등록 완료"
+                  ? "success-confirm-button"
+                  : "single-action-button"
+              }
             >
               {singleActionText}
             </Button>

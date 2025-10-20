@@ -25,16 +25,16 @@ test.describe("DiariesNew Modal Close Functionality", () => {
 
     // Verify that the cancel modal appears
     await expect(page.locator('[data-testid="cancel-modal"]')).toBeVisible({
-      timeout: 1500,
+      timeout: 400,
     });
     await expect(page.locator('[data-testid="cancel-modal-title"]')).toHaveText(
       "등록 취소",
-      { timeout: 1500 }
+      { timeout: 400 }
     );
     await expect(
       page.locator('[data-testid="cancel-modal-content"]')
     ).toHaveText("작성 중인 일기가 있습니다. 정말 취소하시겠습니까?", {
-      timeout: 1500,
+      timeout: 400,
     });
   });
 
@@ -67,10 +67,10 @@ test.describe("DiariesNew Modal Close Functionality", () => {
 
     // Verify that cancel modal is closed but diary form modal is still open
     await expect(page.locator('[data-testid="cancel-modal"]')).not.toBeVisible({
-      timeout: 1500,
+      timeout: 400,
     });
     await expect(page.locator('[data-testid="diary-form-modal"]')).toBeVisible({
-      timeout: 1500,
+      timeout: 400,
     });
   });
 
@@ -103,15 +103,15 @@ test.describe("DiariesNew Modal Close Functionality", () => {
 
     // Verify that both modals are closed
     await expect(page.locator('[data-testid="cancel-modal"]')).not.toBeVisible({
-      timeout: 1500,
+      timeout: 400,
     });
     await expect(
       page.locator('[data-testid="diary-form-modal"]')
-    ).not.toBeVisible({ timeout: 1500 });
+    ).not.toBeVisible({ timeout: 400 });
 
     // Verify that we're back to the diaries page
     await expect(
       page.locator('[data-testid="diaries-page-loaded"]')
-    ).toBeVisible({ timeout: 1500 });
+    ).toBeVisible({ timeout: 400 });
   });
 });

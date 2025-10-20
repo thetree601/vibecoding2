@@ -1,47 +1,33 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import styles from "./styles.module.css";
 import { Input } from "../../commons/components/input";
 import { Button } from "../../commons/components/button";
-import {
-  EMOTIONS,
-  EMOTION_ASSETS,
-  Emotion,
-} from "../../commons/constants/enum";
+import { EMOTIONS, EMOTION_ASSETS } from "../../commons/constants/enum";
 import { useDiariesNewModalClose } from "./hooks/index.link.modal.close.hook";
+import { useDiariesNewForm } from "./hooks/index.form.hook";
 
 export default function DiariesNew() {
-  const [selectedEmotion, setSelectedEmotion] = useState<Emotion | null>(null);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const { handleCloseClick, CancelModal } = useDiariesNewModalClose();
+  const {
+    form,
+    handleEmotionChange,
+    handleTitleChange,
+    handleContentChange,
+    handleRegister,
+    isFormValid,
+    SuccessModal,
+  } = useDiariesNewForm();
 
-  const handleEmotionChange = (emotion: Emotion): void => {
-    setSelectedEmotion(emotion);
-  };
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setTitle(e.target.value);
-  };
-
-  const handleContentChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ): void => {
-    setContent(e.target.value);
-  };
+  const { watch } = form;
+  const selectedEmotion = watch("emotion");
+  const title = watch("title");
+  const content = watch("content");
 
   const handleClose = (): void => {
     handleCloseClick();
   };
-
-  const handleRegister = (): void => {
-    // TODO: Implement register diary logic
-    console.log("Register diary", { selectedEmotion, title, content });
-  };
-
-  const isRegisterDisabled =
-    !selectedEmotion || !title.trim() || !content.trim();
 
   return (
     <div className={styles.wrapper} data-testid="diary-form-modal">
@@ -126,8 +112,9 @@ export default function DiariesNew() {
           theme="light"
           size="medium"
           onClick={handleRegister}
-          disabled={isRegisterDisabled}
+          disabled={!isFormValid}
           className={styles.registerButton}
+          data-testid="register-button"
         >
           등록하기
         </Button>
@@ -138,6 +125,9 @@ export default function DiariesNew() {
 
       {/* Cancel Modal - 진짜 중첩 모달 */}
       <CancelModal />
+
+      {/* Success Modal - 등록 완료 모달 */}
+      <SuccessModal />
     </div>
   );
 }

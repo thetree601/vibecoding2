@@ -49,7 +49,7 @@ export const useDiariesNewModalClose = () => {
           <Modal
             variant="info"
             actions="dual"
-            title="일기등록 취소"
+            title="등록 취소"
             content="작성 중인 일기가 있습니다. 정말 취소하시겠습니까?"
             dualActionFirstText="계속 작성"
             dualActionSecondText="등록 취소"
