@@ -9,31 +9,33 @@ import {
   EMOTION_ASSETS,
   Emotion,
 } from "../../commons/constants/enum";
-import { useModal } from "../../commons/providers/modal/modal.provider";
+import { useDiariesNewModalClose } from "./hooks/index.link.modal.close.hook";
 
 export default function DiariesNew() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotion | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const { closeModal } = useModal();
+  const { handleCloseClick, CancelModal } = useDiariesNewModalClose();
 
-  const handleEmotionChange = (emotion: Emotion) => {
+  const handleEmotionChange = (emotion: Emotion): void => {
     setSelectedEmotion(emotion);
   };
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(e.target.value);
   };
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleContentChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ): void => {
     setContent(e.target.value);
   };
 
-  const handleClose = () => {
-    closeModal();
+  const handleClose = (): void => {
+    handleCloseClick();
   };
 
-  const handleRegister = () => {
+  const handleRegister = (): void => {
     // TODO: Implement register diary logic
     console.log("Register diary", { selectedEmotion, title, content });
   };
@@ -42,7 +44,7 @@ export default function DiariesNew() {
     !selectedEmotion || !title.trim() || !content.trim();
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="diary-form-modal">
       {/* Header section */}
       <div className={styles.header}>
         <h1 className={styles.headerTitle}>일기 쓰기</h1>
@@ -115,6 +117,7 @@ export default function DiariesNew() {
           size="medium"
           onClick={handleClose}
           className={styles.closeButton}
+          data-testid="close-button"
         >
           닫기
         </Button>
@@ -132,6 +135,9 @@ export default function DiariesNew() {
 
       {/* Bottom space (remaining 48px) */}
       <div className={styles.bottomSpace}></div>
+
+      {/* Cancel Modal - 진짜 중첩 모달 */}
+      <CancelModal />
     </div>
   );
 }

@@ -191,7 +191,10 @@ export default function Diaries() {
   };
 
   return (
-    <div className={styles.container} data-testid="diaries-page">
+    <div
+      className={styles.container}
+      data-testid="diaries-page-loaded"
+    >
       {/* Gap */}
       <div className={styles.gap}>
         <div className={styles.gapInner}></div>

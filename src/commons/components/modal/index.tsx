@@ -114,11 +114,15 @@ export const Modal: React.FC<ModalProps> = ({
   const isDangerVariant = variant === "danger";
 
   return (
-    <div className={modalClasses}>
+    <div className={modalClasses} data-testid="cancel-modal">
       <div className={styles.content}>
         <div className={styles.textArea}>
-          <h2 className={styles.title}>{title}</h2>
-          <p className={styles.description}>{content}</p>
+          <h2 className={styles.title} data-testid="cancel-modal-title">
+            {title}
+          </h2>
+          <p className={styles.description} data-testid="cancel-modal-content">
+            {content}
+          </p>
           {/* variant 사용 예시 (향후 확장 가능) */}
           {isDangerVariant && (
             <div style={{ display: "none" }}>Danger variant</div>
@@ -144,6 +148,7 @@ export const Modal: React.FC<ModalProps> = ({
                 size="medium"
                 onClick={onDualActionFirst}
                 className={styles.dualButton}
+                data-testid="continue-writing-button"
               >
                 {dualActionFirstText}
               </Button>
@@ -153,6 +158,7 @@ export const Modal: React.FC<ModalProps> = ({
                 size="medium"
                 onClick={onDualActionSecond}
                 className={styles.dualButton}
+                data-testid="cancel-registration-button"
               >
                 {dualActionSecondText}
               </Button>
