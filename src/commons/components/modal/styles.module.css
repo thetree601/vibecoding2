@@ -1,0 +1,88 @@
+/* Modal Container */
+.modal {
+  width: 480px;
+  height: 200px;
+  background-color: var(--gray-white);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Content Area */
+.content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  height: 100%;
+}
+
+/* Text Area */
+.textArea {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+/* Title */
+.title {
+  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+  text-align: center;
+  color: var(--gray-90);
+  margin: 0;
+}
+
+/* Description */
+.description {
+  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  text-align: center;
+  color: var(--gray-70);
+  margin: 0;
+}
+
+/* Button Area */
+.buttonArea {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Single Button */
+.singleButton {
+  width: 100%;
+  height: 48px;
+}
+
+/* Dual Buttons */
+.dualButton {
+  width: 104px;
+  height: 48px;
+}
+
+/* Variant, Action, and Theme styles are handled by component logic */
+
+.dark {
+  /* Dark theme specific styles */
+  background-color: var(--background-secondary);
+}
+
+.dark .title {
+  color: var(--foreground);
+}
+
+.dark .description {
+  color: var(--gray-60);
+}
