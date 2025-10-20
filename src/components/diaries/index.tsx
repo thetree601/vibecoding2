@@ -14,6 +14,7 @@ import {
 } from "../../commons/constants/enum";
 import { useDiaryModal } from "./hooks/index.link.modal.hook";
 import { useDiariesBinding } from "./hooks/index.binding.hook";
+import { useDiariesLinkRouting } from "./hooks/index.link.routing.hook";
 
 // Diary Card Component
 interface DiaryCardProps {
@@ -24,13 +25,19 @@ interface DiaryCardProps {
     title: string;
     image: string;
   };
+  onCardClick: (id: number) => void;
+  onDeleteClick: (event: React.MouseEvent) => void;
 }
 
-function DiaryCard({ diary }: DiaryCardProps) {
+function DiaryCard({ diary, onCardClick, onDeleteClick }: DiaryCardProps) {
   const emotionAsset = EMOTION_ASSETS[diary.emotion];
 
   return (
-    <div className={styles.diaryCard} data-testid={`diary-card-${diary.id}`}>
+    <div
+      className={styles.diaryCard}
+      data-testid={`diary-card-${diary.id}`}
+      onClick={() => onCardClick(diary.id)}
+    >
       <div className={styles.cardImageContainer}>
         <Image
           src={diary.image}
@@ -39,7 +46,7 @@ function DiaryCard({ diary }: DiaryCardProps) {
           height={208}
           className={styles.cardImage}
         />
-        <button className={styles.closeButton}>
+        <button className={styles.closeButton} onClick={onDeleteClick}>
           <Image
             src="/icons/close_outline_light_m.svg"
             alt="닫기"
@@ -77,6 +84,7 @@ export default function Diaries() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const { openDiaryModal } = useDiaryModal();
   const { loaded, diaryCards } = useDiariesBinding();
+  const { handleCardClick, handleDeleteClick } = useDiariesLinkRouting();
 
   const filterOptions = useMemo(
     () => [
@@ -257,7 +265,12 @@ export default function Diaries() {
           <div className={styles.mainContent}>
             <div className={styles.diaryGrid}>
               {diaryCards.map((diary) => (
-                <DiaryCard key={diary.id} diary={diary} />
+                <DiaryCard
+                  key={diary.id}
+                  diary={diary}
+                  onCardClick={handleCardClick}
+                  onDeleteClick={handleDeleteClick}
+                />
               ))}
             </div>
           </div>
