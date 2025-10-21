@@ -1,0 +1,162 @@
+/**
+ * AuthSignup Component Styles
+ * 회원가입 폼 컴포넌트 스타일
+ * global.css의 변수 토큰을 활용하여 구현
+ */
+
+/* Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: var(--background);
+}
+
+.formWrapper {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 32px;
+  background-color: var(--gray-white);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--gray-10);
+}
+
+/* Title */
+.title {
+  font-size: var(--typography-korean-mobile-headline01-font-size);
+  font-weight: var(--typography-korean-mobile-headline01-font-weight);
+  line-height: var(--typography-korean-mobile-headline01-line-height);
+  letter-spacing: var(--typography-korean-mobile-headline01-letter-spacing);
+  font-family: var(--typography-korean-mobile-headline01-font-family);
+  color: var(--gray-90);
+  text-align: center;
+  margin: 0 0 32px 0;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Input Group */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: var(--typography-korean-mobile-body02-font-size);
+  font-weight: var(--typography-korean-mobile-body02-font-weight);
+  line-height: var(--typography-korean-mobile-body02-line-height);
+  letter-spacing: var(--typography-korean-mobile-body02-letter-spacing);
+  font-family: var(--typography-korean-mobile-body02-font-family);
+  color: var(--gray-80);
+  margin: 0;
+}
+
+.input {
+  width: 100%;
+}
+
+/* Error Message */
+.errorMessage {
+  font-size: var(--typography-korean-mobile-caption01-font-size);
+  font-weight: var(--typography-korean-mobile-caption01-font-weight);
+  line-height: var(--typography-korean-mobile-caption01-line-height);
+  letter-spacing: var(--typography-korean-mobile-caption01-letter-spacing);
+  font-family: var(--typography-korean-mobile-caption01-font-family);
+  color: var(--red-40);
+  margin: 0;
+}
+
+/* Submit Button */
+.submitButton {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Login Link */
+.loginLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-10);
+}
+
+.loginText {
+  font-size: var(--typography-korean-mobile-body03-font-size);
+  font-weight: var(--typography-korean-mobile-body03-font-weight);
+  line-height: var(--typography-korean-mobile-body03-line-height);
+  letter-spacing: var(--typography-korean-mobile-body03-letter-spacing);
+  font-family: var(--typography-korean-mobile-body03-font-family);
+  color: var(--gray-60);
+}
+
+.loginButton {
+  background: none;
+  border: none;
+  font-size: var(--typography-korean-mobile-body03-font-size);
+  font-weight: var(--typography-korean-mobile-body03-font-weight);
+  line-height: var(--typography-korean-mobile-body03-line-height);
+  letter-spacing: var(--typography-korean-mobile-body03-letter-spacing);
+  font-family: var(--typography-korean-mobile-body03-font-family);
+  color: var(--blue-50);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.loginButton:hover {
+  color: var(--blue-60);
+}
+
+.loginButton:focus {
+  outline: none;
+  color: var(--blue-60);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--typography-korean-desktop-headline01-font-size);
+    font-weight: var(--typography-korean-desktop-headline01-font-weight);
+    line-height: var(--typography-korean-desktop-headline01-line-height);
+    letter-spacing: var(--typography-korean-desktop-headline01-letter-spacing);
+    font-family: var(--typography-korean-desktop-headline01-font-family);
+  }
+
+  .label {
+    font-size: var(--typography-korean-desktop-body02-font-size);
+    font-weight: var(--typography-korean-desktop-body02-font-weight);
+    line-height: var(--typography-korean-desktop-body02-line-height);
+    letter-spacing: var(--typography-korean-desktop-body02-letter-spacing);
+    font-family: var(--typography-korean-desktop-body02-font-family);
+  }
+
+  .errorMessage {
+    font-size: var(--typography-korean-desktop-caption01-font-size);
+    font-weight: var(--typography-korean-desktop-caption01-font-weight);
+    line-height: var(--typography-korean-desktop-caption01-line-height);
+    letter-spacing: var(--typography-korean-desktop-caption01-letter-spacing);
+    font-family: var(--typography-korean-desktop-caption01-font-family);
+  }
+
+  .loginText,
+  .loginButton {
+    font-size: var(--typography-korean-desktop-body03-font-size);
+    font-weight: var(--typography-korean-desktop-body03-font-weight);
+    line-height: var(--typography-korean-desktop-body03-line-height);
+    letter-spacing: var(--typography-korean-desktop-body03-letter-spacing);
+    font-family: var(--typography-korean-desktop-body03-font-family);
+  }
+}
