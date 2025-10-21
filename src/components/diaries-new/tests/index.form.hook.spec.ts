@@ -123,7 +123,6 @@ test.describe("DiariesNew Form Functionality", () => {
     expect(diaries[0].createdAt).toBeDefined();
   });
 
-
   test("should handle different emotion types correctly", async ({ page }) => {
     const emotions = ["Happy", "Sad", "Angry", "Surprise", "Etc"];
 

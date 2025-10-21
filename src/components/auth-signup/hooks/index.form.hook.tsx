@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -63,21 +64,22 @@ const createUser = async (input: {
     }
   `;
 
-  const response = await fetch(
-    "https://main-practice.codebootcamp.co.kr/graphql",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+  const response = await fetch("/api/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query,
+      variables: {
+        createUserInput: input,
       },
-      body: JSON.stringify({
-        query,
-        variables: {
-          createUserInput: input,
-        },
-      }),
-    }
-  );
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
 
   const result = await response.json();
 
@@ -156,6 +158,19 @@ export const useAuthSignupForm = () => {
 
   // 버튼 활성화 조건: 모든 필드 입력되면 활성화
   const isSubmitEnabled = isAllFieldsFilled;
+
+  // 비밀번호 확인 실시간 검증
+  React.useEffect(() => {
+    if (password && passwordConfirm && password !== passwordConfirm) {
+      form.setError("passwordConfirm", {
+        type: "manual",
+        message: "비밀번호가 일치하지 않습니다",
+      });
+    } else if (passwordConfirm && password === passwordConfirm) {
+      form.clearErrors("passwordConfirm");
+    }
+  }, [password, passwordConfirm, form]);
+
 
   const createUserMutation = useMutation({
     mutationFn: createUser,
