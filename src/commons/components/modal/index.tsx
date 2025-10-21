@@ -116,7 +116,15 @@ export const Modal: React.FC<ModalProps> = ({
   return (
     <div
       className={modalClasses}
-      data-testid={title === "등록 완료" ? "success-modal" : "cancel-modal"}
+      data-testid={
+        title === "등록 완료" 
+          ? "success-modal" 
+          : title === "로그인 완료"
+          ? "login-success-modal"
+          : title === "로그인 실패"
+          ? "login-fail-modal"
+          : "cancel-modal"
+      }
     >
       <div className={styles.content}>
         <div className={styles.textArea}>
@@ -157,6 +165,8 @@ export const Modal: React.FC<ModalProps> = ({
               data-testid={
                 title === "등록 완료"
                   ? "success-confirm-button"
+                  : title === "로그인 완료" || title === "로그인 실패"
+                  ? "modal-confirm-button"
                   : "single-action-button"
               }
             >
