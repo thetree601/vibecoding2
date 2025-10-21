@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "./styles.module.css";
 import { useLinkRouting } from "./hooks/index.link.routing.hook";
 import { useArea } from "./hooks/index.area.hook";
-import { useAuth } from "@/commons/providers/auth/auth.provider";
+import { useAuthLayout } from "./hooks/index.auth.hook";
 import { Button } from "@/commons/components/button";
 
 interface LayoutProps {
@@ -14,26 +14,67 @@ interface LayoutProps {
 
 // AuthStatus 컴포넌트
 function AuthStatus() {
-  const { isLoggedIn, user, logout } = useAuth();
+  const {
+    showLoginButton,
+    showUserInfo,
+    user,
+    handleLoginClick,
+    handleLogoutClick,
+  } = useAuthLayout();
 
-  if (!isLoggedIn || !user) {
-    return null;
-  }
+  // 디버깅을 위한 로그
+  console.log("AuthStatus - showLoginButton:", showLoginButton);
+  console.log("AuthStatus - showUserInfo:", showUserInfo);
+  console.log("AuthStatus - user:", user);
 
-  return (
-    <div className={styles.authStatus}>
-      <span className={styles.userName}>{user.name}님 환영합니다</span>
+  // 로그인 버튼 표시
+  if (showLoginButton) {
+    return (
       <Button
-        variant="secondary"
+        variant="primary"
         theme="light"
         size="small"
-        onClick={logout}
-        className={styles.logoutButton}
+        onClick={handleLoginClick}
+        className={styles.loginButton}
+        data-testid="login-button"
       >
-        로그아웃
+        로그인
       </Button>
-    </div>
-  );
+    );
+  }
+
+  // 사용자 정보 및 로그아웃 버튼 표시
+  if (showUserInfo && user) {
+    return (
+      <div className={styles.authStatus} data-testid="auth-status">
+        <span className={styles.userName} data-testid="user-name">
+          {user.name}님 환영합니다
+        </span>
+        <Button
+          variant="secondary"
+          theme="light"
+          size="small"
+          onClick={handleLogoutClick}
+          className={styles.logoutButton}
+          data-testid="logout-button"
+        >
+          로그아웃
+        </Button>
+      </div>
+    );
+  }
+
+  // 디버깅: 로그인 상태가 true인데 사용자 정보가 없는 경우
+  if (!showLoginButton && !showUserInfo) {
+    console.log("AuthStatus - 로그인 상태이지만 사용자 정보가 없음");
+    return (
+      <div className={styles.authStatus} data-testid="auth-status">
+        <span className={styles.userName}>로딩 중...</span>
+      </div>
+    );
+  }
+
+  return null;
 }
 
 export default function Layout({ children }: LayoutProps) {

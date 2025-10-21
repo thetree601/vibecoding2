@@ -196,6 +196,9 @@ export const useAuthLoginForm = () => {
         // 사용자 정보를 로컬스토리지에 저장
         localStorage.setItem("user", JSON.stringify(userInfo));
 
+        // AuthProvider에 상태 변경 알림
+        window.dispatchEvent(new CustomEvent("authStateChange"));
+
         // 로그인 성공 모달 표시
         console.log("로그인 성공 모달 표시 시도");
         openModal(
@@ -222,6 +225,9 @@ export const useAuthLoginForm = () => {
           email: "user@example.com",
         };
         localStorage.setItem("user", JSON.stringify(tempUserInfo));
+
+        // AuthProvider에 상태 변경 알림
+        window.dispatchEvent(new CustomEvent("authStateChange"));
 
         // 로그인 성공 모달 표시 (사용자 정보 조회 실패해도 로그인은 성공)
         console.log("로그인 성공 모달 표시 시도 (임시 사용자 정보)");

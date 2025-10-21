@@ -59,6 +59,10 @@
   line-height: 20px;
 }
 
+.loginButton {
+  width: 80px;
+}
+
 .logoutButton {
   width: 80px;
 }

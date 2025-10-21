@@ -105,9 +105,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // 컴포넌트 마운트 시 초기 상태 설정
   useEffect(() => {
+    console.log("AuthProvider - 마운트 시 초기 상태 설정");
     const hasToken = checkAuthStatus();
+    console.log("AuthProvider - hasToken:", hasToken);
     if (hasToken) {
-      getUserInfo();
+      const userInfo = getUserInfo();
+      console.log("AuthProvider - userInfo:", userInfo);
     }
   }, []);
 
