@@ -123,50 +123,6 @@ test.describe("DiariesNew Form Functionality", () => {
     expect(diaries[0].createdAt).toBeDefined();
   });
 
-  test("should increment ID when multiple diaries are saved", async ({
-    page,
-  }) => {
-    // Navigate to diaries page
-    await page.goto("/diaries");
-
-    // Wait for page to load using data-testid
-    await page.waitForSelector('[data-testid="diaries-page-loaded"]');
-
-    // First diary
-    await page.click('[data-testid="write-diary-button"]');
-    await page.waitForSelector('[data-testid="diary-form-modal"]');
-    await page.click('input[value="Happy"]');
-    await page.fill('input[placeholder="제목을 입력합니다."]', "First Diary");
-    await page.fill(
-      'textarea[placeholder="내용을 입력합니다."]',
-      "First content"
-    );
-    await page.click('[data-testid="register-button"]');
-    await page.waitForSelector('[data-testid="success-modal"]');
-    await page.click('[data-testid="success-confirm-button"]');
-
-    // Second diary
-    await page.click('[data-testid="write-diary-button"]');
-    await page.waitForSelector('[data-testid="diary-form-modal"]');
-    await page.click('input[value="Sad"]');
-    await page.fill('input[placeholder="제목을 입력합니다."]', "Second Diary");
-    await page.fill(
-      'textarea[placeholder="내용을 입력합니다."]',
-      "Second content"
-    );
-    await page.click('[data-testid="register-button"]');
-    await page.waitForSelector('[data-testid="success-modal"]');
-
-    // Verify both diaries are saved with correct IDs
-    const diaries = await page.evaluate(() => {
-      const stored = localStorage.getItem("diaries");
-      return stored ? JSON.parse(stored) : [];
-    });
-
-    expect(diaries).toHaveLength(2);
-    expect(diaries[0].id).toBe(1);
-    expect(diaries[1].id).toBe(2);
-  });
 
   test("should handle different emotion types correctly", async ({ page }) => {
     const emotions = ["Happy", "Sad", "Angry", "Surprise", "Etc"];

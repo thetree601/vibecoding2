@@ -1,26 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "../../commons/components/input";
 import { Button } from "../../commons/components/button";
+import { useAuthSignupForm } from "./hooks/index.form.hook";
 import styles from "./styles.module.css";
 
+/**
+ * AuthSignup 컴포넌트 Props 인터페이스
+ */
 export interface AuthSignupProps {
   /**
-   * 회원가입 성공 시 호출되는 콜백
-   */
-  onSignup?: (data: SignupData) => void;
-
-  /**
-   * 로그인 페이지로 이동하는 콜백
+   * 로그인 페이지로 이동하는 콜백 함수
    */
   onNavigateToLogin?: () => void;
 }
 
+/**
+ * 회원가입 데이터 인터페이스 (레거시)
+ * 
+ * @deprecated useAuthSignupForm의 SignupFormData 타입을 사용하세요
+ */
 export interface SignupData {
+  /**
+   * 이메일 주소
+   */
   email: string;
+  /**
+   * 비밀번호
+   */
   password: string;
+  /**
+   * 비밀번호 확인
+   */
   confirmPassword: string;
+  /**
+   * 사용자 이름
+   */
   name: string;
 }
 
@@ -28,95 +44,27 @@ export interface SignupData {
  * AuthSignup 컴포넌트
  *
  * 회원가입 폼을 제공하는 컴포넌트입니다.
- * Input과 Button 공통 컴포넌트를 활용하여 구현되었습니다.
+ * react-hook-form, zod, @tanstack/react-query를 활용하여 구현되었습니다.
  *
  * @example
  * ```tsx
  * <AuthSignup
- *   onSignup={(data) => console.log('Signup data:', data)}
  *   onNavigateToLogin={() => router.push('/auth/login')}
  * />
  * ```
  */
 export const AuthSignup: React.FC<AuthSignupProps> = ({
-  onSignup,
   onNavigateToLogin,
 }) => {
-  const [formData, setFormData] = useState<SignupData>({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    name: "",
-  });
-
-  const [errors, setErrors] = useState<Partial<SignupData>>({});
-
-  const handleInputChange =
-    (field: keyof SignupData) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData((prev) => ({
-        ...prev,
-        [field]: event.target.value,
-      }));
-
-      // 에러 상태 초기화
-      if (errors[field]) {
-        setErrors((prev) => ({
-          ...prev,
-          [field]: undefined,
-        }));
-      }
-    };
-
-  const validateForm = (): boolean => {
-    const newErrors: Partial<SignupData> = {};
-
-    // 이메일 검증
-    if (!formData.email) {
-      newErrors.email = "이메일을 입력해주세요";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "올바른 이메일 형식을 입력해주세요";
-    }
-
-    // 비밀번호 검증
-    if (!formData.password) {
-      newErrors.password = "비밀번호를 입력해주세요";
-    } else if (formData.password.length < 8) {
-      newErrors.password = "비밀번호는 8자 이상이어야 합니다";
-    }
-
-    // 비밀번호 확인 검증
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = "비밀번호를 다시 입력해주세요";
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "비밀번호가 일치하지 않습니다";
-    }
-
-    // 이름 검증
-    if (!formData.name) {
-      newErrors.name = "이름을 입력해주세요";
-    } else if (formData.name.length < 2) {
-      newErrors.name = "이름은 2자 이상이어야 합니다";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (validateForm()) {
-      onSignup?.(formData);
-    }
-  };
+  const { form, onSubmit, isSubmitEnabled, isLoading } = useAuthSignupForm();
+  const { register, formState } = form;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="auth-signup-container">
       <div className={styles.formWrapper}>
         <h1 className={styles.title}>회원가입</h1>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={onSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor="email" className={styles.label}>
               이메일
@@ -128,13 +76,15 @@ export const AuthSignup: React.FC<AuthSignupProps> = ({
               size="medium"
               theme="light"
               placeholder="이메일을 입력해주세요"
-              value={formData.email}
-              onChange={handleInputChange("email")}
-              error={!!errors.email}
+              {...register("email")}
+              error={!!formState.errors.email}
               className={styles.input}
+              data-testid="email-input"
             />
-            {errors.email && (
-              <span className={styles.errorMessage}>{errors.email}</span>
+            {formState.errors.email && (
+              <span className={styles.errorMessage} data-testid="email-error">
+                {formState.errors.email.message}
+              </span>
             )}
           </div>
 
@@ -149,35 +99,43 @@ export const AuthSignup: React.FC<AuthSignupProps> = ({
               size="medium"
               theme="light"
               placeholder="비밀번호를 입력해주세요"
-              value={formData.password}
-              onChange={handleInputChange("password")}
-              error={!!errors.password}
+              {...register("password")}
+              error={!!formState.errors.password}
               className={styles.input}
+              data-testid="password-input"
             />
-            {errors.password && (
-              <span className={styles.errorMessage}>{errors.password}</span>
+            {formState.errors.password && (
+              <span
+                className={styles.errorMessage}
+                data-testid="password-error"
+              >
+                {formState.errors.password.message}
+              </span>
             )}
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="confirmPassword" className={styles.label}>
+            <label htmlFor="passwordConfirm" className={styles.label}>
               비밀번호 확인
             </label>
             <Input
-              id="confirmPassword"
+              id="passwordConfirm"
               type="password"
               variant="primary"
               size="medium"
               theme="light"
               placeholder="비밀번호를 다시 입력해주세요"
-              value={formData.confirmPassword}
-              onChange={handleInputChange("confirmPassword")}
-              error={!!errors.confirmPassword}
+              {...register("passwordConfirm")}
+              error={!!formState.errors.passwordConfirm}
               className={styles.input}
+              data-testid="password-confirm-input"
             />
-            {errors.confirmPassword && (
-              <span className={styles.errorMessage}>
-                {errors.confirmPassword}
+            {formState.errors.passwordConfirm && (
+              <span
+                className={styles.errorMessage}
+                data-testid="password-confirm-error"
+              >
+                {formState.errors.passwordConfirm.message}
               </span>
             )}
           </div>
@@ -193,13 +151,15 @@ export const AuthSignup: React.FC<AuthSignupProps> = ({
               size="medium"
               theme="light"
               placeholder="이름을 입력해주세요"
-              value={formData.name}
-              onChange={handleInputChange("name")}
-              error={!!errors.name}
+              {...register("name")}
+              error={!!formState.errors.name}
               className={styles.input}
+              data-testid="name-input"
             />
-            {errors.name && (
-              <span className={styles.errorMessage}>{errors.name}</span>
+            {formState.errors.name && (
+              <span className={styles.errorMessage} data-testid="name-error">
+                {formState.errors.name.message}
+              </span>
             )}
           </div>
 
@@ -209,8 +169,10 @@ export const AuthSignup: React.FC<AuthSignupProps> = ({
             size="medium"
             theme="light"
             className={styles.submitButton}
+            disabled={!isSubmitEnabled || isLoading}
+            data-testid="signup-submit-button"
           >
-            회원가입
+            {isLoading ? "가입 중..." : "회원가입"}
           </Button>
         </form>
 
