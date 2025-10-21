@@ -5,9 +5,35 @@ import Image from "next/image";
 import styles from "./styles.module.css";
 import { useLinkRouting } from "./hooks/index.link.routing.hook";
 import { useArea } from "./hooks/index.area.hook";
+import { useAuth } from "@/commons/providers/auth/auth.provider";
+import { Button } from "@/commons/components/button";
 
 interface LayoutProps {
   children: React.ReactNode;
+}
+
+// AuthStatus 컴포넌트
+function AuthStatus() {
+  const { isLoggedIn, user, logout } = useAuth();
+
+  if (!isLoggedIn || !user) {
+    return null;
+  }
+
+  return (
+    <div className={styles.authStatus}>
+      <span className={styles.userName}>{user.name}님 환영합니다</span>
+      <Button
+        variant="secondary"
+        theme="light"
+        size="small"
+        onClick={logout}
+        className={styles.logoutButton}
+      >
+        로그아웃
+      </Button>
+    </div>
+  );
 }
 
 export default function Layout({ children }: LayoutProps) {
@@ -42,6 +68,7 @@ export default function Layout({ children }: LayoutProps) {
                   민지의 다이어리
                 </div>
               )}
+              <AuthStatus />
             </div>
           </div>
         </header>
