@@ -171,7 +171,6 @@ export const useAuthSignupForm = () => {
     }
   }, [password, passwordConfirm, form]);
 
-
   const createUserMutation = useMutation({
     mutationFn: createUser,
     onSuccess: () => {

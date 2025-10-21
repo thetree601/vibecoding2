@@ -1,0 +1,159 @@
+/**
+ * AuthLogin Component Styles
+ * 로그인 폼 컴포넌트 스타일
+ */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: var(--background);
+}
+
+.form {
+  width: 100%;
+  max-width: 400px;
+  padding: 32px 32px 40px 32px;
+  background-color: var(--gray-white);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--gray-10);
+}
+
+.title {
+  font-size: var(--typography-korean-mobile-headline01-font-size);
+  font-weight: var(--typography-korean-mobile-headline01-font-weight);
+  line-height: var(--typography-korean-mobile-headline01-line-height);
+  letter-spacing: var(--typography-korean-mobile-headline01-letter-spacing);
+  font-family: var(--typography-korean-mobile-headline01-font-family);
+  color: var(--gray-90);
+  text-align: center;
+  margin: 0 0 24px 0;
+}
+
+.inputGroup {
+  margin-bottom: 28px;
+}
+
+.passwordGroup {
+  margin-bottom: 36px;
+}
+
+.label {
+  display: block;
+  font-size: var(--typography-korean-mobile-body02-font-size);
+  font-weight: var(--typography-korean-mobile-body02-font-weight);
+  line-height: var(--typography-korean-mobile-body02-line-height);
+  letter-spacing: var(--typography-korean-mobile-body02-letter-spacing);
+  font-family: var(--typography-korean-mobile-body02-font-family);
+  color: var(--gray-80);
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+}
+
+.errorMessage {
+  font-size: var(--typography-korean-mobile-caption01-font-size);
+  font-weight: var(--typography-korean-mobile-caption01-font-weight);
+  line-height: var(--typography-korean-mobile-caption01-line-height);
+  letter-spacing: var(--typography-korean-mobile-caption01-letter-spacing);
+  font-family: var(--typography-korean-mobile-caption01-font-family);
+  color: var(--red-40);
+  text-align: center;
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  background-color: var(--red-05);
+  border-radius: 6px;
+  border: 1px solid var(--red-10);
+}
+
+.loginButton {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.signupLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.signupText {
+  font-size: var(--typography-korean-mobile-body03-font-size);
+  font-weight: var(--typography-korean-mobile-body03-font-weight);
+  line-height: var(--typography-korean-mobile-body03-line-height);
+  letter-spacing: var(--typography-korean-mobile-body03-letter-spacing);
+  font-family: var(--typography-korean-mobile-body03-font-family);
+  color: var(--gray-60);
+}
+
+.signupButton {
+  background: none;
+  border: none;
+  font-size: var(--typography-korean-mobile-body03-font-size);
+  font-weight: var(--typography-korean-mobile-body03-font-weight);
+  line-height: var(--typography-korean-mobile-body03-line-height);
+  letter-spacing: var(--typography-korean-mobile-body03-letter-spacing);
+  font-family: var(--typography-korean-mobile-body03-font-family);
+  color: var(--blue-50);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.signupButton:hover {
+  color: var(--blue-60);
+}
+
+.signupButton:active {
+  color: var(--blue-70);
+}
+
+/* Desktop Styles */
+@media (min-width: 768px) {
+  .title {
+    font-size: var(--typography-korean-desktop-headline01-font-size);
+    font-weight: var(--typography-korean-desktop-headline01-font-weight);
+    line-height: var(--typography-korean-desktop-headline01-line-height);
+    letter-spacing: var(--typography-korean-desktop-headline01-letter-spacing);
+    font-family: var(--typography-korean-desktop-headline01-font-family);
+  }
+
+  .label {
+    font-size: var(--typography-korean-desktop-body02-font-size);
+    font-weight: var(--typography-korean-desktop-body02-font-weight);
+    line-height: var(--typography-korean-desktop-body02-line-height);
+    letter-spacing: var(--typography-korean-desktop-body02-letter-spacing);
+    font-family: var(--typography-korean-desktop-body02-font-family);
+  }
+
+  .errorMessage {
+    font-size: var(--typography-korean-desktop-caption01-font-size);
+    font-weight: var(--typography-korean-desktop-caption01-font-weight);
+    line-height: var(--typography-korean-desktop-caption01-line-height);
+    letter-spacing: var(--typography-korean-desktop-caption01-letter-spacing);
+    font-family: var(--typography-korean-desktop-caption01-font-family);
+  }
+
+  .signupText {
+    font-size: var(--typography-korean-desktop-body03-font-size);
+    font-weight: var(--typography-korean-desktop-body03-font-weight);
+    line-height: var(--typography-korean-desktop-body03-line-height);
+    letter-spacing: var(--typography-korean-desktop-body03-letter-spacing);
+    font-family: var(--typography-korean-desktop-body03-font-family);
+  }
+
+  .signupButton {
+    font-size: var(--typography-korean-desktop-body03-font-size);
+    font-weight: var(--typography-korean-desktop-body03-font-weight);
+    line-height: var(--typography-korean-desktop-body03-line-height);
+    letter-spacing: var(--typography-korean-desktop-body03-letter-spacing);
+    font-family: var(--typography-korean-desktop-body03-font-family);
+  }
+}
