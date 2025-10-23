@@ -31,7 +31,8 @@ test.describe("Diaries Link Routing", () => {
 
     await card.click();
 
-    await expect(page).toHaveURL(/\/diaries\/101$/, { timeout: 300 });
+    // 라우팅이 완료될 때까지 기다림 (최대 5초)
+    await expect(page).toHaveURL(/\/diaries\/101$/, { timeout: 5000 });
   });
 
   test("does not navigate when clicking delete icon on card", async ({

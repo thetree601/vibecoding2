@@ -15,6 +15,7 @@ import {
 import { useDiaryModal } from "./hooks/index.link.modal.hook";
 import { useDiariesBinding } from "./hooks/index.binding.hook";
 import { useDiariesLinkRouting } from "./hooks/index.link.routing.hook";
+import { useDiariesSearch } from "./hooks/index.search.hook";
 
 // Diary Card Component
 interface DiaryCardProps {
@@ -83,8 +84,41 @@ export default function Diaries() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const { openDiaryModal } = useDiaryModal();
-  const { loaded, diaryCards } = useDiariesBinding();
+  const { loaded, diaries } = useDiariesBinding();
   const { handleCardClick, handleDeleteClick } = useDiariesLinkRouting();
+  const { filteredDiaries } = useDiariesSearch({ diaries, searchValue });
+
+  // 검색된 일기들을 카드 형태로 변환
+  const searchResultCards = useMemo(() => {
+    return filteredDiaries.map((diary) => {
+      const emotionAsset = EMOTION_ASSETS[diary.emotion];
+      const createdDate = new Date(diary.createdAt);
+      const formattedDate = createdDate
+        .toLocaleDateString("ko-KR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        })
+        .replace(/\./g, ". ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .replace(/\.$/, "");
+
+      // 제목이 길 경우 "..." 처리 (카드 크기에 맞게 조정)
+      const truncatedTitle =
+        diary.title.length > 20
+          ? diary.title.substring(0, 20) + "..."
+          : diary.title;
+
+      return {
+        id: diary.id,
+        emotion: diary.emotion,
+        date: formattedDate,
+        title: truncatedTitle,
+        image: emotionAsset.icon.m,
+      };
+    });
+  }, [filteredDiaries]);
 
   const filterOptions = useMemo(
     () => [
@@ -264,7 +298,7 @@ export default function Diaries() {
         <div className={styles.mainInner}>
           <div className={styles.mainContent}>
             <div className={styles.diaryGrid}>
-              {diaryCards.map((diary) => (
+              {searchResultCards.map((diary) => (
                 <DiaryCard
                   key={diary.id}
                   diary={diary}
@@ -288,7 +322,7 @@ export default function Diaries() {
           <div className={styles.paginationContent}>
             <Pagination
               currentPage={currentPage}
-              totalPages={Math.ceil(diaryCards.length / 12) || 1}
+              totalPages={Math.ceil(searchResultCards.length / 12) || 1}
               onChange={handlePageChange}
               variant="primary"
               theme="light"
