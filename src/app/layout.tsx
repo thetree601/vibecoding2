@@ -5,6 +5,7 @@ import { ModalProvider } from "@/commons/providers/modal/modal.provider";
 import { NextThemesProvider } from "@/commons/providers/next-themes/next-themes.provider";
 import { ReactQueryProvider } from "@/commons/providers/react-query/react-query.provider";
 import { AuthProvider } from "@/commons/providers/auth/auth.provider";
+import { AuthGuard } from "@/commons/providers/auth/auth.guard";
 import Layout from "@/commons/layout";
 
 const geistSans = localFont({
@@ -37,7 +38,9 @@ export default function RootLayout({
           <ReactQueryProvider>
             <NextThemesProvider>
               <ModalProvider>
-                <Layout>{children}</Layout>
+                <AuthGuard>
+                  <Layout>{children}</Layout>
+                </AuthGuard>
               </ModalProvider>
             </NextThemesProvider>
           </ReactQueryProvider>
