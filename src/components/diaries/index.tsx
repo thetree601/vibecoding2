@@ -16,6 +16,7 @@ import { useDiaryModal } from "./hooks/index.link.modal.hook";
 import { useDiariesBinding } from "./hooks/index.binding.hook";
 import { useDiariesLinkRouting } from "./hooks/index.link.routing.hook";
 import { useDiariesSearch } from "./hooks/index.search.hook";
+import { useDiariesFilter } from "./hooks/index.filter.hook";
 
 // Diary Card Component
 interface DiaryCardProps {
@@ -86,7 +87,14 @@ export default function Diaries() {
   const { openDiaryModal } = useDiaryModal();
   const { loaded, diaries } = useDiariesBinding();
   const { handleCardClick, handleDeleteClick } = useDiariesLinkRouting();
-  const { filteredDiaries } = useDiariesSearch({ diaries, searchValue });
+  const { filteredDiaries: searchFilteredDiaries } = useDiariesSearch({
+    diaries,
+    searchValue,
+  });
+  const { filteredDiaries } = useDiariesFilter({
+    diaries: searchFilteredDiaries,
+    filterValue,
+  });
 
   // 검색된 일기들을 카드 형태로 변환
   const searchResultCards = useMemo(() => {
@@ -167,6 +175,7 @@ export default function Diaries() {
                   onChange={handleFilterChange}
                   placeholder="전체"
                   className={styles.filterSelect}
+                  data-testid="emotion-filter-select"
                 />
                 <SearchBar
                   variant="primary"
@@ -256,6 +265,7 @@ export default function Diaries() {
                 onChange={handleFilterChange}
                 placeholder="전체"
                 className={styles.filterSelect}
+                data-testid="emotion-filter-select"
               />
               <SearchBar
                 variant="primary"

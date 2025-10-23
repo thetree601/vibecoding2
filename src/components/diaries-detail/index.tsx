@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import { Button } from "../../commons/components/button";
 import { Input } from "../../commons/components/input";
 import { useDiariesDetailBinding } from "./hooks/index.binding.hook";
-import { useRetrospectForm, Retrospect } from "./hooks/index.retrospect.form.hook";
+import { useRetrospectForm } from "./hooks/index.retrospect.form.hook";
+import { useRetrospectBinding } from "./hooks/index.retrospect.binding.hook";
 
 interface DiariesDetailProps {
   // Props can be added later as needed
@@ -18,22 +19,12 @@ interface DiariesDetailProps {
 const DiariesDetail: React.FC<DiariesDetailProps> = () => {
   const { loaded, diary, emotionAsset } = useDiariesDetailBinding();
   const { form, isSubmitEnabled, onSubmit } = useRetrospectForm();
-  const [retrospects, setRetrospects] = useState<Retrospect[]>([]);
+  const { retrospects } = useRetrospectBinding();
 
-  // 로컬스토리지에서 회고 데이터 로드
-  useEffect(() => {
-    if (diary) {
-      try {
-        const stored = localStorage.getItem("retrospects");
-        const allRetrospects: Retrospect[] = stored ? JSON.parse(stored) : [];
-        const diaryRetrospects = allRetrospects.filter(r => r.diaryId === diary.id);
-        setRetrospects(diaryRetrospects);
-      } catch (error) {
-        console.error("회고 데이터 로드 중 오류:", error);
-        setRetrospects([]);
-      }
-    }
-  }, [diary]);
+  // 회고 데이터를 최신 순으로 정렬
+  const sortedRetrospects = [...retrospects].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 
   return (
     <div className={styles.container} data-testid="diaries-detail-page-loaded">
@@ -125,14 +116,17 @@ const DiariesDetail: React.FC<DiariesDetailProps> = () => {
             {/* Retrospect Input - 피그마 3:1098 */}
             <div className={styles.retrospectInput}>
               <div className={styles.retrospectLabel}>회고</div>
-              <form onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.currentTarget);
-                const content = formData.get('content') as string;
-                if (content && content.trim()) {
-                  onSubmit({ content: content.trim() });
-                }
-              }} className={styles.retrospectInputFrame}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.currentTarget);
+                  const content = formData.get("content") as string;
+                  if (content && content.trim()) {
+                    onSubmit({ content: content.trim() });
+                  }
+                }}
+                className={styles.retrospectInputFrame}
+              >
                 <Input
                   variant="primary"
                   theme="light"
@@ -156,21 +150,26 @@ const DiariesDetail: React.FC<DiariesDetailProps> = () => {
 
             {/* Retrospect List - 피그마 3:1105 */}
             <div className={styles.retrospectList}>
-              {retrospects.map((retrospect, index) => (
+              {sortedRetrospects.map((retrospect, index) => (
                 <div key={retrospect.id}>
                   <div className={styles.retrospectItem}>
                     <div className={styles.retrospectText}>
                       {retrospect.content}
                     </div>
                     <div className={styles.retrospectDate}>
-                      [{new Date(retrospect.createdAt).toLocaleDateString("ko-KR", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                      }).replace(/\./g, ".").replace(/\.$/, "")}]
+                      [
+                      {new Date(retrospect.createdAt)
+                        .toLocaleDateString("ko-KR", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                        })
+                        .replace(/\./g, ".")
+                        .replace(/\.$/, "")}
+                      ]
                     </div>
                   </div>
-                  {index < retrospects.length - 1 && (
+                  {index < sortedRetrospects.length - 1 && (
                     <div className={styles.retrospectDivider}></div>
                   )}
                 </div>

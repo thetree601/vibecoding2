@@ -73,12 +73,9 @@ export const useRetrospectForm = () => {
       // 폼 리셋
       reset();
 
-      // 페이지 새로고침 (테스트 환경에서는 제외)
-      if (
-        typeof window !== "undefined" &&
-        !window.location.href.includes("localhost:3000")
-      ) {
-        window.location.reload();
+      // 커스텀 이벤트로 회고 목록 업데이트 알림
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("retrospectsUpdated"));
       }
     } catch (error) {
       console.error("회고 저장 중 오류가 발생했습니다:", error);
