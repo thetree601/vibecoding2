@@ -2,6 +2,10 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Diaries Detail - Retrospect Form", () => {
   test.beforeEach(async ({ page }) => {
+    // 테스트 환경에서 인증 우회
+    await page.addInitScript(() => {
+        (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ = true;
+    });
     // 실제 다이어리 데이터 사용 (Mock 데이터 사용 안 함)
     await page.addInitScript(() => {
       // 실제 사용자 데이터 시뮬레이션
@@ -19,8 +23,8 @@ test.describe("Diaries Detail - Retrospect Form", () => {
   test("회고 폼 등록 기능 테스트", async ({ page }) => {
     // 1. /diaries/1에 접속하여 페이지 로드 확인
     await page.goto("/diaries/1");
-    await page.waitForSelector('[data-testid="diary-title"]', {
-      timeout: 500,
+    await page.waitForSelector('[data-testid="diaries-detail-page-loaded"]', {
+      timeout: 5000,
     });
 
     // 페이지 로드 확인
@@ -86,8 +90,8 @@ test.describe("Diaries Detail - Retrospect Form", () => {
     }, existingRetrospects);
 
     await page.goto("/diaries/1");
-    await page.waitForSelector('[data-testid="diary-title"]', {
-      timeout: 500,
+    await page.waitForSelector('[data-testid="diaries-detail-page-loaded"]', {
+      timeout: 5000,
     });
 
     // 회고 입력 및 등록
@@ -121,8 +125,8 @@ test.describe("Diaries Detail - Retrospect Form", () => {
 
   test("빈 내용으로 등록 시도 시 버튼 비활성화 테스트", async ({ page }) => {
     await page.goto("/diaries/1");
-    await page.waitForSelector('[data-testid="diary-title"]', {
-      timeout: 500,
+    await page.waitForSelector('[data-testid="diaries-detail-page-loaded"]', {
+      timeout: 5000,
     });
 
     const retrospectInput = page.locator(

@@ -4,6 +4,11 @@ test.describe("DiariesNew Form Functionality", () => {
   // Set viewport size to ensure modal is visible
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 });
+    
+    // 테스트 환경에서 인증 우회
+    await page.addInitScript(() => {
+        (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ = true;
+    });
   });
 
   test("should show form validation when fields are empty", async ({

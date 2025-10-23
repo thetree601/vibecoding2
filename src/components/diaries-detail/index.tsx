@@ -9,6 +9,7 @@ import { useDiariesDetailBinding } from "./hooks/index.binding.hook";
 import { useRetrospectForm } from "./hooks/index.retrospect.form.hook";
 import { useRetrospectBinding } from "./hooks/index.retrospect.binding.hook";
 import { useDiaryUpdate } from "./hooks/index.update.hook";
+import { useDiaryDelete } from "./hooks/index.delete.hook";
 import { Emotion, EMOTION_ASSETS } from "../../commons/constants/enum";
 
 interface DiariesDetailProps {
@@ -31,6 +32,8 @@ const DiariesDetail: React.FC<DiariesDetailProps> = () => {
     exitEditMode,
     onSubmit: onEditSubmit,
   } = useDiaryUpdate();
+
+  const { openDeleteModal } = useDiaryDelete();
 
   // 회고 데이터를 최신 순으로 정렬
   const sortedRetrospects = [...retrospects].sort(
@@ -137,6 +140,8 @@ const DiariesDetail: React.FC<DiariesDetailProps> = () => {
                   theme="light"
                   size="medium"
                   className={styles.deleteButton}
+                  data-testid="delete-button"
+                  onClick={() => diary && openDeleteModal(diary.id)}
                 >
                   삭제
                 </Button>
@@ -154,10 +159,15 @@ const DiariesDetail: React.FC<DiariesDetailProps> = () => {
                 >
                   {/* 기분 선택 영역 - 피그마 3:1225 */}
                   <div className={styles.editEmotionSection}>
-                    <div className={styles.editEmotionTitle}>오늘 기분은 어땟나요?</div>
+                    <div className={styles.editEmotionTitle}>
+                      오늘 기분은 어땟나요?
+                    </div>
                     <div className={styles.editEmotionOptions}>
                       {Object.values(Emotion).map((emotion) => (
-                        <label key={emotion} className={styles.editEmotionOption}>
+                        <label
+                          key={emotion}
+                          className={styles.editEmotionOption}
+                        >
                           <input
                             type="radio"
                             {...editForm.register("emotion")}
@@ -233,7 +243,10 @@ const DiariesDetail: React.FC<DiariesDetailProps> = () => {
                 /* 수정중일땐 회고를 작성할 수 없어요 - 피그마 3:1247 */
                 <div className={styles.retrospectDisabledFrame}>
                   <div className={styles.retrospectDisabledInput}>
-                    <span className={styles.retrospectDisabledText} data-testid="retrospect-disabled-text">
+                    <span
+                      className={styles.retrospectDisabledText}
+                      data-testid="retrospect-disabled-text"
+                    >
                       수정중일땐 회고를 작성할 수 없어요.
                     </span>
                   </div>

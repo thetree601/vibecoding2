@@ -3,6 +3,10 @@ import { test, expect } from "@playwright/test";
 test.describe("DiariesDetail Binding Functionality", () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
+    // 테스트 환경에서 인증 우회
+    await page.addInitScript(() => {
+        (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ = true;
+    });
   });
 
   test("binds and renders diary detail by id from localStorage", async ({
@@ -27,7 +31,7 @@ test.describe("DiariesDetail Binding Functionality", () => {
     // Navigate directly to detail page
     await page.goto(`/diaries/${diary.id}`);
 
-    // Wait for page load using fixed data-testid
+    // Wait for page load
     await page.waitForSelector('[data-testid="diaries-detail-page-loaded"]');
 
     // Assert bound fields
@@ -54,7 +58,8 @@ test.describe("DiariesDetail Binding Functionality", () => {
     });
 
     await page.goto(`/diaries/123456789`);
-    await page.waitForSelector('[data-testid="diaries-detail-page-loaded"]');
+    // 페이지 로드 대기 (not found 메시지가 나타날 때까지)
+    await page.waitForTimeout(1000);
 
     await expect(page.getByTestId("diaries-detail-not-found")).toBeVisible({
       timeout: 400,

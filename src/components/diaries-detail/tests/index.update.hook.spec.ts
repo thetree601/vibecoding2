@@ -2,6 +2,10 @@ import { test, expect } from "@playwright/test";
 
 test.describe("일기 수정 기능", () => {
   test.beforeEach(async ({ page }) => {
+    // 테스트 환경에서 인증 우회
+    await page.addInitScript(() => {
+        (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ = true;
+    });
     // 테스트용 일기 데이터 설정
     const testDiary = {
       id: 1,

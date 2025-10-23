@@ -41,6 +41,22 @@ export const useDiariesBinding = () => {
     }
   }, []);
 
+  // 삭제 이벤트 리스너 추가
+  useEffect(() => {
+    const handleDiaryDeleted = () => {
+      try {
+        const stored = localStorage.getItem("diaries");
+        const parsedDiaries: BoundDiary[] = stored ? JSON.parse(stored) : [];
+        setDiaries(parsedDiaries);
+      } catch (error) {
+        console.error("Failed to reload diaries after deletion:", error);
+      }
+    };
+
+    window.addEventListener("diaryDeleted", handleDiaryDeleted);
+    return () => window.removeEventListener("diaryDeleted", handleDiaryDeleted);
+  }, []);
+
   /**
    * 일기 데이터를 카드 형태로 변환합니다.
    * - 감정에 따른 이미지 매핑

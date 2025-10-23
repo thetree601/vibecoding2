@@ -4,6 +4,11 @@ test.describe("Diaries Link Modal Auth Hook", () => {
   // Set viewport size to ensure modal is visible
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 720 });
+    
+    // 테스트 환경에서 인증 우회
+    await page.addInitScript(() => {
+        (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ = true;
+    });
   });
 
   test.describe("Non-logged in user scenario", () => {

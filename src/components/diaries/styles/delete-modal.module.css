@@ -1,0 +1,26 @@
+/* 일기 삭제 모달 전용 스타일 - 상세페이지와 동일한 간격 */
+.deleteModalContent {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 100%;
+}
+
+.deleteModalTextArea {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+}
+
+.deleteModalButtonArea {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
