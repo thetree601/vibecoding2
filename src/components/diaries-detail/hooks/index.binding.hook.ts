@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { Emotion, EMOTION_ASSETS } from "../../../commons/constants/enum";
 
@@ -22,7 +22,7 @@ export const useDiariesDetailBinding = () => {
   const [diary, setDiary] = useState<BoundDiaryDetail | null>(null);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
+  const loadDiary = useCallback(() => {
     const idParam = params?.id;
     const id =
       typeof idParam === "string" ? Number(idParam) : Number(idParam?.[0]);
@@ -43,6 +43,21 @@ export const useDiariesDetailBinding = () => {
       setLoaded(true);
     }
   }, [params]);
+
+  useEffect(() => {
+    loadDiary();
+  }, [params, loadDiary]);
+
+  // diaryUpdated 이벤트 리스너 추가
+  useEffect(() => {
+    const handleDiaryUpdate = () => {
+      console.log("diaryUpdated 이벤트 수신, 데이터 다시 로드");
+      loadDiary();
+    };
+
+    window.addEventListener("diaryUpdated", handleDiaryUpdate);
+    return () => window.removeEventListener("diaryUpdated", handleDiaryUpdate);
+  }, [params, loadDiary]);
 
   const emotionAsset = useMemo(() => {
     if (!diary) return null;

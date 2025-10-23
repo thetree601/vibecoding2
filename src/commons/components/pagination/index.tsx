@@ -83,7 +83,7 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   const handleChange = (page: number) => {
     const next = clamp(page, 1, totalPages);
-    if (next !== clampedCurrent) onChange(next);
+    if (next !== currentPage) onChange(next);
   };
 
   const pages = getPages(clampedCurrent, totalPages, maxVisible);
@@ -152,6 +152,7 @@ export const Pagination: React.FC<PaginationProps> = ({
               .join(" ")}
             aria-current={active ? "page" : undefined}
             onClick={() => handleChange(p)}
+            data-testid={`pagination-number-${p}`}
           >
             {p}
           </button>

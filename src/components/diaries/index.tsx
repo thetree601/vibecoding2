@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import styles from "./styles.module.css";
 import { Selectbox } from "../../commons/components/selectbox";
 import { SearchBar } from "../../commons/components/searchbar";
@@ -17,6 +17,7 @@ import { useDiariesBinding } from "./hooks/index.binding.hook";
 import { useDiariesLinkRouting } from "./hooks/index.link.routing.hook";
 import { useDiariesSearch } from "./hooks/index.search.hook";
 import { useDiariesFilter } from "./hooks/index.filter.hook";
+import { useDiariesPagination } from "./hooks/index.pagination.hook";
 
 // Diary Card Component
 interface DiaryCardProps {
@@ -83,22 +84,40 @@ function DiaryCard({ diary, onCardClick, onDeleteClick }: DiaryCardProps) {
 export default function Diaries() {
   const [filterValue, setFilterValue] = useState<string>("all");
   const [searchValue, setSearchValue] = useState<string>("");
+  const [debouncedSearchValue, setDebouncedSearchValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const { openDiaryModal } = useDiaryModal();
   const { loaded, diaries } = useDiariesBinding();
   const { handleCardClick, handleDeleteClick } = useDiariesLinkRouting();
+  // 디바운싱을 위한 useEffect
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchValue(searchValue);
+    }, 300); // 300ms 대기
+
+    return () => clearTimeout(timer);
+  }, [searchValue]);
+
   const { filteredDiaries: searchFilteredDiaries } = useDiariesSearch({
     diaries,
-    searchValue,
+    searchValue: debouncedSearchValue,
   });
   const { filteredDiaries } = useDiariesFilter({
     diaries: searchFilteredDiaries,
     filterValue,
   });
 
+
+  const { paginatedDiaries, totalPages } = useDiariesPagination({
+    diaries: filteredDiaries,
+    currentPage,
+    itemsPerPage: 12,
+  });
+
+
   // 검색된 일기들을 카드 형태로 변환
   const searchResultCards = useMemo(() => {
-    return filteredDiaries.map((diary) => {
+    return paginatedDiaries.map((diary) => {
       const emotionAsset = EMOTION_ASSETS[diary.emotion];
       const createdDate = new Date(diary.createdAt);
       const formattedDate = createdDate
@@ -126,7 +145,7 @@ export default function Diaries() {
         image: emotionAsset.icon.m,
       };
     });
-  }, [filteredDiaries]);
+  }, [paginatedDiaries]);
 
   const filterOptions = useMemo(
     () => [
@@ -152,6 +171,7 @@ export default function Diaries() {
   };
 
   const handlePageChange = (page: number) => {
+    console.log("Page change requested:", page, "Current page:", currentPage);
     setCurrentPage(page);
   };
 
@@ -332,7 +352,7 @@ export default function Diaries() {
           <div className={styles.paginationContent}>
             <Pagination
               currentPage={currentPage}
-              totalPages={Math.ceil(searchResultCards.length / 12) || 1}
+              totalPages={totalPages}
               onChange={handlePageChange}
               variant="primary"
               theme="light"

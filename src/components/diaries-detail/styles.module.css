@@ -329,6 +329,248 @@
   margin: 12px 0;
 }
 
+/* Edit Mode Styles - 피그마 3:1224 */
+.editMode {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.editForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* 기분 선택 영역 - 피그마 3:1225 */
+.editEmotionSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.editEmotionTitle {
+  font-family: var(--font-family-korean-primary);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  color: var(--foreground);
+}
+
+.editEmotionOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.editEmotionOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.editEmotionRadio {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  accent-color: #000000;
+}
+
+.editEmotionLabel {
+  font-family: var(--font-family-korean-primary);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.18px;
+  color: #333333;
+}
+
+/* 제목 입력 - 피그마 3:1233 */
+.editTitleSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.editTitleLabel {
+  font-family: var(--font-family-korean-primary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  color: #333333;
+}
+
+.editTitleInputWrapper {
+  width: 100%;
+}
+
+.editTitleInput {
+  width: 100%;
+  height: 48px;
+  padding: 12px 16px;
+  border: 1px solid #d4d3d3;
+  border-radius: 8px;
+  font-family: var(--font-family-korean-primary);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.editTitleInput:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+/* 내용 입력 - 피그마 3:1237 */
+.editContentSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.editContentLabel {
+  font-family: var(--font-family-korean-primary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  color: #333333;
+}
+
+.editContentInputWrapper {
+  width: 100%;
+}
+
+.editContentTextarea {
+  width: 100%;
+  min-height: 128px;
+  padding: 12px 16px;
+  border: 1px solid #d4d3d3;
+  border-radius: 8px;
+  font-family: var(--font-family-korean-primary);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: #000000;
+  background-color: #ffffff;
+  resize: vertical;
+}
+
+.editContentTextarea:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+/* 버튼 영역 - 피그마 3:1241 */
+.editFooterSection {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.editCancelButton {
+  width: 104px;
+  height: 48px;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-family: var(--font-family-korean-primary);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  color: #1c1c1c;
+  cursor: pointer;
+}
+
+.editCancelButton:hover {
+  background-color: #f5f5f5;
+}
+
+.editSubmitButton {
+  width: 104px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background-color: #000000;
+  font-family: var(--font-family-korean-primary);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  color: #f2f2f2;
+  cursor: pointer;
+}
+
+.editSubmitButton:hover:not(:disabled) {
+  background-color: #333333;
+}
+
+.editSubmitButton:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* 회고 비활성화 - 피그마 3:1247 */
+.retrospectDisabledFrame {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.retrospectDisabledInput {
+  flex: 1;
+  height: 48px;
+  background-color: #f2f2f2;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.retrospectDisabledText {
+  font-family: var(--font-family-korean-primary);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: #ababab;
+}
+
+.retrospectDisabledButton {
+  width: 51px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background-color: #c7c7c7;
+  font-family: var(--font-family-korean-primary);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  color: #f2f2f2;
+  cursor: not-allowed;
+}
+
 /* Responsive adjustments for desktop */
 @media (min-width: 768px) {
   .retrospectLabel {
