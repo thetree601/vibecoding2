@@ -26,10 +26,13 @@ interface AuthGuardProps {
  * ```
  */
 export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
-  const [isAuthorizing, setIsAuthorizing] = useState(true);
-  const [hasShownLoginModal, setHasShownLoginModal] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(false);
   const pathname = usePathname();
+
+  // 루트 경로는 즉시 인증 완료 상태로 설정
+  const isRootPath = pathname === "/";
+  const [isAuthorizing, setIsAuthorizing] = useState(!isRootPath);
+  const [hasShownLoginModal, setHasShownLoginModal] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(isRootPath);
   const router = useRouter();
   const { isLoggedIn, checkAuthStatus } = useAuth();
   const { openModal, closeModal } = useModal();
@@ -70,6 +73,13 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
   useEffect(() => {
     const authorize = async () => {
       try {
+        // 루트 경로는 리다이렉트만 수행하므로 인증 검사 생략
+        if (pathname === "/") {
+          setIsAuthorizing(false);
+          setIsAuthorized(true);
+          return;
+        }
+
         // AuthProvider 초기화 대기
         await new Promise((resolve) => setTimeout(resolve, 100));
 
