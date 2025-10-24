@@ -1,13 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import Selectbox from "@/commons/components/selectbox";
 import { usePicturesBinding } from "./hooks/index.binding.hook";
 import { useFilter } from "./hooks/index.filter.hook";
 
-export default function PicturesUI(): JSX.Element {
+function PicturesUI(): JSX.Element {
   const { selectedFilter, setSelectedFilter, filterSize, filterOptions } =
     useFilter();
 
@@ -89,3 +89,5 @@ export default function PicturesUI(): JSX.Element {
     </section>
   );
 }
+
+export default memo(PicturesUI);

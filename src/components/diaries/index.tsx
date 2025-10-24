@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
+import React, {
+  useMemo,
+  useEffect,
+  memo,
+  useCallback,
+  useReducer,
+} from "react";
 import styles from "./styles.module.css";
 import { Selectbox } from "../../commons/components/selectbox";
 import { SearchBar } from "../../commons/components/searchbar";
@@ -94,11 +100,47 @@ function DiaryCard({
   );
 }
 
-export default function Diaries() {
-  const [filterValue, setFilterValue] = useState<string>("all");
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [debouncedSearchValue, setDebouncedSearchValue] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState<number>(1);
+// 상태 타입 정의
+interface DiariesState {
+  filterValue: string;
+  searchValue: string;
+  debouncedSearchValue: string;
+  currentPage: number;
+}
+
+// 액션 타입 정의
+type DiariesAction =
+  | { type: "SET_FILTER"; payload: string }
+  | { type: "SET_SEARCH"; payload: string }
+  | { type: "SET_DEBOUNCED_SEARCH"; payload: string }
+  | { type: "SET_PAGE"; payload: number };
+
+// 리듀서 함수
+const diariesReducer = (
+  state: DiariesState,
+  action: DiariesAction
+): DiariesState => {
+  switch (action.type) {
+    case "SET_FILTER":
+      return { ...state, filterValue: action.payload };
+    case "SET_SEARCH":
+      return { ...state, searchValue: action.payload };
+    case "SET_DEBOUNCED_SEARCH":
+      return { ...state, debouncedSearchValue: action.payload };
+    case "SET_PAGE":
+      return { ...state, currentPage: action.payload };
+    default:
+      return state;
+  }
+};
+
+function Diaries() {
+  const [state, dispatch] = useReducer(diariesReducer, {
+    filterValue: "all",
+    searchValue: "",
+    debouncedSearchValue: "",
+    currentPage: 1,
+  });
   const { openDiaryModal } = useDiaryModal();
   const { loaded, diaries } = useDiariesBinding();
   const { handleCardClick } = useDiariesLinkRouting();
@@ -107,24 +149,24 @@ export default function Diaries() {
   // 디바운싱을 위한 useEffect
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedSearchValue(searchValue);
+      dispatch({ type: "SET_DEBOUNCED_SEARCH", payload: state.searchValue });
     }, 300); // 300ms 대기
 
     return () => clearTimeout(timer);
-  }, [searchValue]);
+  }, [state.searchValue]);
 
   const { filteredDiaries: searchFilteredDiaries } = useDiariesSearch({
     diaries,
-    searchValue: debouncedSearchValue,
+    searchValue: state.debouncedSearchValue,
   });
   const { filteredDiaries } = useDiariesFilter({
     diaries: searchFilteredDiaries,
-    filterValue,
+    filterValue: state.filterValue,
   });
 
   const { paginatedDiaries, totalPages } = useDiariesPagination({
     diaries: filteredDiaries,
-    currentPage,
+    currentPage: state.currentPage,
     itemsPerPage: 12,
   });
 
@@ -171,22 +213,33 @@ export default function Diaries() {
     []
   );
 
-  const handleFilterChange = (value: string) => {
-    setFilterValue(value);
-  };
+  const handleFilterChange = useCallback((value: string) => {
+    dispatch({ type: "SET_FILTER", payload: value });
+  }, []);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  };
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch({ type: "SET_SEARCH", payload: e.target.value });
+    },
+    []
+  );
 
   const handleWriteDiary = () => {
     openDiaryModal();
   };
 
-  const handlePageChange = (page: number) => {
-    console.log("Page change requested:", page, "Current page:", currentPage);
-    setCurrentPage(page);
-  };
+  const handlePageChange = useCallback(
+    (page: number) => {
+      console.log(
+        "Page change requested:",
+        page,
+        "Current page:",
+        state.currentPage
+      );
+      dispatch({ type: "SET_PAGE", payload: page });
+    },
+    [state.currentPage]
+  );
 
   // Show loading state while data is being fetched
   if (!loaded) {
@@ -204,7 +257,7 @@ export default function Diaries() {
                   theme="light"
                   size="medium"
                   options={filterOptions}
-                  value={filterValue}
+                  value={state.filterValue}
                   onChange={handleFilterChange}
                   placeholder="전체"
                   className={styles.filterSelect}
@@ -214,7 +267,7 @@ export default function Diaries() {
                   variant="primary"
                   theme="light"
                   size="medium"
-                  value={searchValue}
+                  value={state.searchValue}
                   onChange={handleSearchChange}
                   placeholder="검색어를 입력해 주세요."
                   className={styles.searchInput}
@@ -257,7 +310,7 @@ export default function Diaries() {
           <div className={styles.paginationInner}>
             <div className={styles.paginationContent}>
               <Pagination
-                currentPage={currentPage}
+                currentPage={state.currentPage}
                 totalPages={1}
                 onChange={handlePageChange}
                 variant="primary"
@@ -294,7 +347,7 @@ export default function Diaries() {
                 theme="light"
                 size="medium"
                 options={filterOptions}
-                value={filterValue}
+                value={state.filterValue}
                 onChange={handleFilterChange}
                 placeholder="전체"
                 className={styles.filterSelect}
@@ -304,7 +357,7 @@ export default function Diaries() {
                 variant="primary"
                 theme="light"
                 size="medium"
-                value={searchValue}
+                value={state.searchValue}
                 onChange={handleSearchChange}
                 placeholder="검색어를 입력해 주세요."
                 className={styles.searchInput}
@@ -351,9 +404,13 @@ export default function Diaries() {
                     // 테스트 환경에서는 __TEST_BYPASS__ 값으로 판단
                     if (
                       typeof window !== "undefined" &&
-                      (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ !== undefined
+                      (window as Window & { __TEST_BYPASS__?: boolean })
+                        .__TEST_BYPASS__ !== undefined
                     ) {
-                      return (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ === true;
+                      return (
+                        (window as Window & { __TEST_BYPASS__?: boolean })
+                          .__TEST_BYPASS__ === true
+                      );
                     }
                     // 실제 환경에서는 로그인 상태만 확인 (모달 표시하지 않음)
                     return isLoggedIn;
@@ -375,7 +432,7 @@ export default function Diaries() {
         <div className={styles.paginationInner}>
           <div className={styles.paginationContent}>
             <Pagination
-              currentPage={currentPage}
+              currentPage={state.currentPage}
               totalPages={totalPages}
               onChange={handlePageChange}
               variant="primary"
@@ -396,3 +453,5 @@ export default function Diaries() {
     </div>
   );
 }
+
+export default memo(Diaries);

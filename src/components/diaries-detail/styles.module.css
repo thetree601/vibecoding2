@@ -9,6 +9,25 @@
   gap: 0;
 }
 
+/* Responsive container adjustments */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin-top: 16px;
+  }
+}
+
 /* Title Section - 피그마 3:1073 (1168x84) */
 .titleSection {
   width: 100%;
@@ -16,6 +35,21 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* Responsive title section adjustments */
+@media (max-width: 768px) {
+  .titleSection {
+    height: auto;
+    min-height: 84px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .titleSection {
+    gap: 6px;
+  }
 }
 
 /* 타이틀 프레임 - 피그마 3:1074 (1168x36) */
@@ -28,6 +62,23 @@
   border-bottom: 3px solid #000000;
 }
 
+/* Responsive title frame adjustments */
+@media (max-width: 768px) {
+  .titleFrame {
+    height: auto;
+    min-height: 36px;
+    padding-bottom: 8px;
+    border-bottom-width: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .titleFrame {
+    padding-bottom: 6px;
+    border-bottom-width: 1px;
+  }
+}
+
 .titleText {
   font-family: var(--font-family-korean-primary);
   font-size: 22px;
@@ -37,6 +88,25 @@
   color: var(--foreground);
   margin: 0;
   padding: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Responsive title text adjustments */
+@media (max-width: 768px) {
+  .titleText {
+    font-size: 20px;
+    line-height: 22px;
+    letter-spacing: -0.2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .titleText {
+    font-size: 18px;
+    line-height: 20px;
+    letter-spacing: -0.18px;
+  }
 }
 
 /* 감정&날짜 프레임 - 피그마 3:1076 (1168x32) */
@@ -47,6 +117,26 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 0;
+}
+
+/* Responsive emotion and date frame adjustments */
+@media (max-width: 768px) {
+  .emotionAndDateFrame {
+    height: auto;
+    min-height: 32px;
+    padding: 12px 0;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .emotionAndDateFrame {
+    padding: 8px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
 }
 
 .emotionContainer {
@@ -107,6 +197,23 @@
   margin-top: 24px;
 }
 
+/* Responsive content section adjustments */
+@media (max-width: 768px) {
+  .contentSection {
+    height: auto;
+    min-height: 169px;
+    gap: 16px;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contentSection {
+    gap: 12px;
+    margin-top: 12px;
+  }
+}
+
 /* 내용 영역 - 피그마 3:1084 (1168x133) */
 .contentArea {
   width: 100%;
@@ -114,6 +221,21 @@
   display: flex;
   flex-direction: column;
   gap: 13px;
+}
+
+/* Responsive content area adjustments */
+@media (max-width: 768px) {
+  .contentArea {
+    height: auto;
+    min-height: 133px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contentArea {
+    gap: 8px;
+  }
 }
 
 .contentLabel {
@@ -138,6 +260,25 @@
   padding: 0;
   flex: 1;
   overflow: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Responsive content text adjustments */
+@media (max-width: 768px) {
+  .contentText {
+    font-size: 15px;
+    line-height: 19px;
+    letter-spacing: -0.15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contentText {
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.14px;
+  }
 }
 
 /* 복사 프레임 - 피그마 3:1087 (1168x24) */
@@ -186,6 +327,27 @@
   border-bottom: 1px solid #000000;
   margin-top: 48px;
   padding-bottom: 26px;
+}
+
+/* Responsive footer section adjustments */
+@media (max-width: 768px) {
+  .footerSection {
+    height: auto;
+    min-height: 40px;
+    gap: 12px;
+    margin-top: 32px;
+    padding-bottom: 20px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerSection {
+    gap: 8px;
+    margin-top: 24px;
+    padding-bottom: 16px;
+    justify-content: center;
+  }
 }
 
 /* 버튼 커스텀 스타일 */
@@ -251,6 +413,21 @@
   margin-top: 24px;
 }
 
+/* Responsive retrospect section adjustments */
+@media (max-width: 768px) {
+  .retrospectSection {
+    gap: 16px;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .retrospectSection {
+    gap: 12px;
+    margin-top: 12px;
+  }
+}
+
 /* Retrospect Input - 피그마 3:1098 (1168x85) */
 .retrospectInput {
   width: 100%;
@@ -258,6 +435,21 @@
   display: flex;
   flex-direction: column;
   gap: 13px;
+}
+
+/* Responsive retrospect input adjustments */
+@media (max-width: 768px) {
+  .retrospectInput {
+    height: auto;
+    min-height: 85px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .retrospectInput {
+    gap: 8px;
+  }
 }
 
 .retrospectLabel {
@@ -279,6 +471,24 @@
   gap: 16px;
 }
 
+/* Responsive retrospect input frame adjustments */
+@media (max-width: 768px) {
+  .retrospectInputFrame {
+    height: auto;
+    min-height: 48px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .retrospectInputFrame {
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
 .retrospectInputField {
   flex: 1;
   height: 48px;
@@ -296,12 +506,44 @@
   background-color: var(--background);
 }
 
+/* Responsive retrospect list adjustments */
+@media (max-width: 768px) {
+  .retrospectList {
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .retrospectList {
+    border-radius: 8px;
+  }
+}
+
 .retrospectItem {
   width: 100%;
   height: 24px;
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+/* Responsive retrospect item adjustments */
+@media (max-width: 768px) {
+  .retrospectItem {
+    height: auto;
+    min-height: 24px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .retrospectItem {
+    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px 0;
+  }
 }
 
 .retrospectText {
@@ -311,6 +553,26 @@
   line-height: 24px;
   letter-spacing: -0.16px;
   color: var(--foreground);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  flex: 1;
+}
+
+/* Responsive retrospect text adjustments */
+@media (max-width: 768px) {
+  .retrospectText {
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: -0.15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .retrospectText {
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.14px;
+  }
 }
 
 .retrospectDate {
@@ -320,6 +582,25 @@
   line-height: 24px;
   letter-spacing: -0.16px;
   color: var(--gray-60);
+  white-space: nowrap;
+}
+
+/* Responsive retrospect date adjustments */
+@media (max-width: 768px) {
+  .retrospectDate {
+    font-size: 15px;
+    line-height: 23px;
+    letter-spacing: -0.15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .retrospectDate {
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: -0.14px;
+    white-space: normal;
+  }
 }
 
 .retrospectDivider {
@@ -337,11 +618,37 @@
   gap: 0;
 }
 
+/* Responsive edit mode adjustments */
+@media (max-width: 768px) {
+  .editMode {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .editMode {
+    gap: 12px;
+  }
+}
+
 .editForm {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0;
+}
+
+/* Responsive edit form adjustments */
+@media (max-width: 768px) {
+  .editForm {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .editForm {
+    gap: 12px;
+  }
 }
 
 /* 기분 선택 영역 - 피그마 3:1225 */
@@ -351,6 +658,21 @@
   flex-direction: column;
   gap: 16px;
   margin-bottom: 32px;
+}
+
+/* Responsive edit emotion section adjustments */
+@media (max-width: 768px) {
+  .editEmotionSection {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .editEmotionSection {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
 }
 
 .editEmotionTitle {
@@ -366,6 +688,20 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+/* Responsive edit emotion options adjustments */
+@media (max-width: 768px) {
+  .editEmotionOptions {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .editEmotionOptions {
+    gap: 4px;
+    flex-direction: column;
+  }
 }
 
 .editEmotionOption {
@@ -398,6 +734,21 @@
   flex-direction: column;
   gap: 8px;
   margin-bottom: 32px;
+}
+
+/* Responsive edit title section adjustments */
+@media (max-width: 768px) {
+  .editTitleSection {
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .editTitleSection {
+    gap: 4px;
+    margin-bottom: 20px;
+  }
 }
 
 .editTitleLabel {
@@ -442,6 +793,21 @@
   margin-bottom: 32px;
 }
 
+/* Responsive edit content section adjustments */
+@media (max-width: 768px) {
+  .editContentSection {
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .editContentSection {
+    gap: 4px;
+    margin-bottom: 20px;
+  }
+}
+
 .editContentLabel {
   font-family: var(--font-family-korean-primary);
   font-size: 14px;
@@ -483,6 +849,22 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
+}
+
+/* Responsive edit footer section adjustments */
+@media (max-width: 768px) {
+  .editFooterSection {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .editFooterSection {
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 .editCancelButton {
@@ -535,6 +917,24 @@
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+/* Responsive retrospect disabled frame adjustments */
+@media (max-width: 768px) {
+  .retrospectDisabledFrame {
+    height: auto;
+    min-height: 48px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .retrospectDisabledFrame {
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 .retrospectDisabledInput {
@@ -594,4 +994,3 @@
     letter-spacing: -0.16px;
   }
 }
-

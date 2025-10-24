@@ -28,11 +28,12 @@
 }
 
 .searchInner {
-  width: 1168px;
+  width: 100%;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 1168px;
 }
 
 .searchContent {
