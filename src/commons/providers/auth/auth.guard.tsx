@@ -29,7 +29,6 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
   const pathname = usePathname();
 
   // 루트 경로는 즉시 인증 완료 상태로 설정
-  const isRootPath = pathname === "/";
   const [isAuthorizing, setIsAuthorizing] = useState(false);
   const [hasShownLoginModal, setHasShownLoginModal] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(true);
