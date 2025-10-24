@@ -30,9 +30,9 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
 
   // 루트 경로는 즉시 인증 완료 상태로 설정
   const isRootPath = pathname === "/";
-  const [isAuthorizing, setIsAuthorizing] = useState(!isRootPath);
+  const [isAuthorizing, setIsAuthorizing] = useState(false);
   const [hasShownLoginModal, setHasShownLoginModal] = useState(false);
-  const [isAuthorized, setIsAuthorized] = useState(isRootPath);
+  const [isAuthorized, setIsAuthorized] = useState(true);
   const router = useRouter();
   const { isLoggedIn, checkAuthStatus } = useAuth();
   const { openModal, closeModal } = useModal();
@@ -128,9 +128,12 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
    * 새로운 경로로 이동할 때 인증 상태를 초기화합니다.
    */
   useEffect(() => {
-    setIsAuthorizing(true);
-    setIsAuthorized(false);
-    setHasShownLoginModal(false);
+    // 루트 경로가 아닌 경우에만 인증 검사 시작
+    if (pathname !== "/") {
+      setIsAuthorizing(true);
+      setIsAuthorized(false);
+      setHasShownLoginModal(false);
+    }
   }, [pathname]);
 
   // 인증 중이면 빈 화면 표시

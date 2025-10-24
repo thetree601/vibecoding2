@@ -454,4 +454,7 @@ function Diaries() {
   );
 }
 
-export default memo(Diaries);
+export default memo(Diaries, (prevProps, nextProps) => {
+  // props가 변경되지 않으면 리렌더링 방지
+  return true;
+});

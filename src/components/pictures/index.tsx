@@ -90,4 +90,7 @@ function PicturesUI(): JSX.Element {
   );
 }
 
-export default memo(PicturesUI);
+export default memo(PicturesUI, (prevProps, nextProps) => {
+  // props가 변경되지 않으면 리렌더링 방지
+  return true;
+});
