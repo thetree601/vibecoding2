@@ -35,7 +35,8 @@ export const useAuthGuard = () => {
   const isTestEnv =
     process.env.NEXT_PUBLIC_TEST_ENV === "test" ||
     (typeof window !== "undefined" &&
-      (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ !== undefined);
+      (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ !==
+        undefined);
 
   // 테스트 환경에서는 기본적으로 로그인 검사 패스
   // 비회원 가드테스트가 필요한 경우에만 __TEST_BYPASS__를 false로 설정

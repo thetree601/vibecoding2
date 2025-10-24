@@ -4,6 +4,11 @@ import { Emotion } from "../../../commons/constants/enum";
 test.describe("Diaries Link Routing", () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
+
+    // 테스트 환경에서 인증 우회 (기본적으로 로그인 상태)
+    await page.addInitScript(() => {
+      (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ = true;
+    });
   });
 
   test("navigates to detail page when clicking diary card", async ({
@@ -58,13 +63,17 @@ test.describe("Diaries Link Routing", () => {
     const card = page.locator('[data-testid="diary-card-202"]');
     await expect(card).toBeVisible({ timeout: 300 });
 
+    // 삭제 버튼이 존재하는지 확인
+    const deleteButton = card.locator("button");
+    await expect(deleteButton).toBeVisible({ timeout: 300 });
+
     // 클릭 전 URL 저장
     const beforeUrl = page.url();
 
-    // 카드 내 삭제 버튼 클릭 (이미지에 fill을 사용하므로 버튼 자체를 찾는다)
-    await card.locator("button").click();
+    // 카드 내 삭제 버튼 클릭
+    await deleteButton.click();
 
-    // URL 변화가 없어야 함
+    // URL 변화가 없어야 함 (삭제 모달만 표시되어야 함)
     await expect(page).toHaveURL(beforeUrl, { timeout: 300 });
   });
 });

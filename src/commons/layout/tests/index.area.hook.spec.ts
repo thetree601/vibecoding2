@@ -19,10 +19,12 @@ test.describe("Layout Area Visibility", () => {
   }) => {
     // 테스트 환경에서 인증 우회
     await page.addInitScript(() => {
-        (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ = true;
+      (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ = true;
     });
     await page.goto("/diaries/1");
-    await page.waitForSelector('[data-testid="area-header"]', { timeout: 5000 });
+    await page.waitForSelector('[data-testid="area-header"]', {
+      timeout: 5000,
+    });
 
     await expect(page.locator('[data-testid="area-header"]')).toBeVisible();
     await expect(page.locator('[data-testid="header-logo"]')).toBeVisible();
