@@ -177,66 +177,6 @@
   width: 100%;
 }
 
-/* 반응형 디자인 - 비율기반 */
-@media (max-width: 1200px) {
-  .diaryGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 900px) {
-  .diaryGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* 모바일 버전 - 피그마 디자인과 동일 (767px 이하) */
-@media (max-width: 767px) {
-  .mainInner {
-    max-width: 360px;
-  }
-
-  .diaryGrid {
-    grid-template-columns: repeat(2, 152px);
-    gap: 16px;
-    width: 320px;
-  }
-
-  .diaryGrid .diaryCard {
-    width: 152px;
-    max-width: 152px;
-    height: 192px;
-  }
-
-  .diaryGrid .diaryCard .cardImageContainer {
-    height: 116px;
-  }
-
-  .cardContent {
-    padding: 8px;
-    gap: 4px;
-    height: 44px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .emotionText {
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  .dateText {
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  .titleText {
-    font-size: 14px;
-    line-height: 24px;
-  }
-}
-
 /* Diary Card Styles */
 .diaryCard {
   width: 100%;
@@ -362,4 +302,108 @@
   justify-content: center;
   width: 100%;
   height: 100%;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - MEDIA QUERIES
+   ======================================== */
+
+/* 반응형 디자인 - 비율기반 */
+@media (max-width: 1200px) {
+  .diaryGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .diaryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 모바일 버전 - 피그마 디자인과 동일 (767px 이하) */
+@media (max-width: 767px) {
+  /* Gap 영역 모바일 대응 */
+  .gapInner {
+    width: 100%;
+  }
+
+  /* Search 영역 모바일 대응 */
+  .search {
+    display: none;
+  }
+
+  .searchMobile {
+    display: flex;
+  }
+
+  /* 드롭다운 메뉴 너비 설정 - 공통 컴포넌트 기본 스타일 사용 */
+  .filterSelectMobile :global(.menu),
+  .filterSelectMobile :global(.selectbox) :global(.menu),
+  .filterSelectMobile :global(.selectbox.small) :global(.menu),
+  .filterSelectMobile :global(.menu),
+  .filterSelectMobile * :global(.menu) {
+    min-width: 102px;
+  }
+
+  /* 드롭다운 옵션 높이 설정 - 공통 컴포넌트 기본 스타일 사용 */
+  .filterSelectMobile :global(.option),
+  .filterSelectMobile :global(.selectbox) :global(.option),
+  .filterSelectMobile :global(.selectbox.small) :global(.option),
+  .filterSelectMobile :global(.option),
+  .filterSelectMobile * :global(.option) {
+    height: 36px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  /* Main Content 모바일 대응 */
+  .mainInner {
+    max-width: 360px;
+  }
+
+  .diaryGrid {
+    grid-template-columns: repeat(2, 152px);
+    gap: 16px;
+    width: 320px;
+  }
+
+  .diaryGrid .diaryCard {
+    width: 152px;
+    max-width: 152px;
+    height: 192px;
+  }
+
+  .diaryGrid .diaryCard .cardImageContainer {
+    height: 116px;
+  }
+
+  .cardContent {
+    padding: 8px;
+    gap: 4px;
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .emotionText {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .dateText {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .titleText {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  /* Pagination 영역 모바일 대응 */
+  .paginationInner {
+    width: 100%;
+  }
 }
