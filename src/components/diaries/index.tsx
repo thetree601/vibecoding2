@@ -244,13 +244,17 @@ function Diaries() {
   // Show loading state while data is being fetched
   if (!loaded) {
     return (
-      <div className={styles.container} data-testid="diaries-page-loaded">
+      <div
+        className={styles.diariesContainer}
+        data-testid="diaries-page-loaded"
+      >
         <div className={styles.gap}>
           <div className={styles.gapInner}></div>
         </div>
         <div className={styles.search}>
           <div className={styles.searchInner}>
             <div className={styles.searchContent}>
+              {/* PC 버전 - 기존 레이아웃 */}
               <div className={styles.searchControls}>
                 <Selectbox
                   variant="primary"
@@ -293,6 +297,53 @@ function Diaries() {
             </div>
           </div>
         </div>
+
+        {/* 모바일 버전 - 피그마 디자인과 동일 */}
+        <div className={styles.searchMobile}>
+          <div className={styles.searchMobileInner}>
+            <div className={styles.searchMobileContent}>
+              <SearchBar
+                variant="primary"
+                theme="light"
+                size="small"
+                value={state.searchValue}
+                onChange={handleSearchChange}
+                placeholder="검색어를 입력해 주세요."
+                className={styles.searchInputMobile}
+              />
+              <div className={styles.searchControlsMobile}>
+                <Selectbox
+                  variant="primary"
+                  theme="light"
+                  size="small"
+                  options={filterOptions}
+                  value={state.filterValue}
+                  onChange={handleFilterChange}
+                  placeholder="전체"
+                  className={styles.filterSelectMobile}
+                  data-testid="emotion-filter-select-mobile"
+                />
+                <Button
+                  variant="primary"
+                  theme="light"
+                  size="small"
+                  onClick={handleWriteDiary}
+                  className={styles.writeButtonMobile}
+                  data-testid="write-diary-button-mobile"
+                >
+                  <Image
+                    src="/icons/plus_outline_light_m.svg"
+                    alt=""
+                    width={24}
+                    height={24}
+                    style={{ marginRight: 8 }}
+                  />
+                  일기쓰기
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className={styles.gap}>
           <div className={styles.gapInner}></div>
         </div>
@@ -331,7 +382,7 @@ function Diaries() {
   }
 
   return (
-    <div className={styles.container} data-testid="diaries-page-loaded">
+    <div className={styles.diariesContainer} data-testid="diaries-page-loaded">
       {/* Gap */}
       <div className={styles.gap}>
         <div className={styles.gapInner}></div>
@@ -341,6 +392,7 @@ function Diaries() {
       <div className={styles.search}>
         <div className={styles.searchInner}>
           <div className={styles.searchContent}>
+            {/* PC 버전 - 기존 레이아웃 */}
             <div className={styles.searchControls}>
               <Selectbox
                 variant="primary"
@@ -380,6 +432,53 @@ function Diaries() {
               />
               일기쓰기
             </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* 모바일 버전 - 피그마 디자인과 동일 */}
+      <div className={styles.searchMobile}>
+        <div className={styles.searchMobileInner}>
+          <div className={styles.searchMobileContent}>
+            <SearchBar
+              variant="primary"
+              theme="light"
+              size="small"
+              value={state.searchValue}
+              onChange={handleSearchChange}
+              placeholder="검색어를 입력해 주세요."
+              className={styles.searchInputMobile}
+            />
+            <div className={styles.searchControlsMobile}>
+              <Selectbox
+                variant="primary"
+                theme="light"
+                size="small"
+                options={filterOptions}
+                value={state.filterValue}
+                onChange={handleFilterChange}
+                placeholder="전체"
+                className={styles.filterSelectMobile}
+                data-testid="emotion-filter-select-mobile"
+              />
+              <Button
+                variant="primary"
+                theme="light"
+                size="small"
+                onClick={handleWriteDiary}
+                className={styles.writeButtonMobile}
+                data-testid="write-diary-button-mobile"
+              >
+                <Image
+                  src="/icons/plus_outline_light_m.svg"
+                  alt=""
+                  width={24}
+                  height={24}
+                  style={{ marginRight: 8 }}
+                />
+                일기쓰기
+              </Button>
+            </div>
           </div>
         </div>
       </div>

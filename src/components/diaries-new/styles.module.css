@@ -9,6 +9,16 @@
   box-sizing: border-box;
 }
 
+/* Mobile responsive styles */
+@media (max-width: 767px) {
+  .wrapper {
+    width: 320px;
+    height: 620px;
+    padding: 24px;
+    overflow: hidden; /* 버튼이 모달 밖으로 나가지 않도록 */
+  }
+}
+
 .header {
   width: 100%;
   height: 24px;
@@ -28,7 +38,7 @@
 
 .gap {
   width: 100%;
-  height: 40px;
+  height: 24px;
   flex-shrink: 0;
 }
 
@@ -45,6 +55,14 @@
   gap: 16px;
 }
 
+/* Mobile responsive styles for emotion box */
+@media (max-width: 767px) {
+  .emotionBox {
+    height: 204px; /* 피그마에서 확인한 정확한 높이 */
+    flex-shrink: 0;
+  }
+}
+
 .emotionTitle {
   font-size: var(--typography-korean-desktop-headline03-font-size);
   font-weight: var(--typography-korean-desktop-headline03-font-weight);
@@ -59,6 +77,14 @@
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+}
+
+/* Mobile responsive styles for emotion options */
+@media (max-width: 767px) {
+  .emotionOptions {
+    flex-direction: column;
+    gap: 12px;
+  }
 }
 
 .emotionOption {
@@ -93,6 +119,14 @@
   gap: 8px;
 }
 
+/* Mobile responsive styles for input title */
+@media (max-width: 767px) {
+  .inputTitle {
+    height: 64px; /* 피그마에서 확인한 정확한 높이 */
+    flex-shrink: 0;
+  }
+}
+
 .inputLabel {
   font-size: var(--typography-korean-desktop-subtitle01-font-size);
   font-weight: var(--typography-korean-desktop-subtitle01-font-weight);
@@ -111,6 +145,14 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* Mobile responsive styles for input content */
+@media (max-width: 767px) {
+  .inputContent {
+    height: 152px; /* 피그마에서 확인한 정확한 높이 */
+    flex-shrink: 0;
+  }
 }
 
 .contentTextarea {
@@ -148,6 +190,15 @@
   gap: 16px;
 }
 
+/* Mobile responsive styles for footer */
+@media (max-width: 767px) {
+  .footer {
+    height: 40px;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+}
+
 .closeButton {
   width: 104px;
   background: var(--background);
@@ -164,7 +215,26 @@
   border: 1px solid var(--gray-40);
 }
 
+/* Mobile responsive styles for buttons */
+@media (max-width: 767px) {
+  .closeButton {
+    width: 80px;
+  }
+
+  .registerButton {
+    width: 80px;
+  }
+}
+
 .bottomSpace {
   width: 100%;
   height: 24px;
+}
+
+/* Mobile responsive styles for bottom space */
+@media (max-width: 767px) {
+  .bottomSpace {
+    height: 24px;
+    flex-shrink: 0;
+  }
 }

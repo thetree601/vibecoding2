@@ -3,13 +3,13 @@
 import React, { memo } from "react";
 import Image from "next/image";
 import styles from "./styles.module.css";
-import Selectbox from "@/commons/components/selectbox";
+import { Selectbox } from "@/commons/components/selectbox";
 import { usePicturesBinding } from "./hooks/index.binding.hook";
-import { useFilter } from "./hooks/index.filter.hook";
+import { usePicturesFilter } from "./hooks/index.filter.hook";
 
 function PicturesUI(): JSX.Element {
   const { selectedFilter, setSelectedFilter, filterSize, filterOptions } =
-    useFilter();
+    usePicturesFilter();
 
   const handleFilterChange = (value: string) => {
     setSelectedFilter(value as "default" | "landscape" | "portrait");
